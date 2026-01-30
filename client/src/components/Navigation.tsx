@@ -31,11 +31,14 @@ export function Navigation() {
     >
       <div className="container-custom flex items-center justify-between">
         <Link href="/">
-          <div className="flex flex-col cursor-pointer group">
-            <h1 className="text-2xl font-bold tracking-tighter text-primary group-hover:text-primary/80 transition-colors">
-              UBUNTHU
-            </h1>
-            <span className="text-[0.6rem] uppercase tracking-[0.3em] text-secondary font-medium">Lodge & Conference</span>
+          <div className="flex items-center gap-3 cursor-pointer group">
+            <img src="/logoubunthu.png" alt="Ubunthu Lodge Logo" className="h-10 w-auto group-hover:opacity-80 transition-opacity" />
+            <div className="flex flex-col">
+              <h1 className="text-xl font-bold tracking-tighter text-primary group-hover:text-primary/80 transition-colors">
+                UBUNTHU
+              </h1>
+              <span className="text-[0.6rem] uppercase tracking-[0.3em] text-secondary font-medium">Lodge & Conference</span>
+            </div>
           </div>
         </Link>
 

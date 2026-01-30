@@ -1,93 +1,129 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { BookingForm } from "@/components/BookingForm";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { motion } from "framer-motion";
+import { MapPin, Phone, Mail, Clock, ChevronRight } from "lucide-react";
 
 export default function Contact() {
+  const reveal = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-[#FDFCFB] text-stone-900 selection:bg-stone-200">
       <Navigation />
       
-      {/* Header */}
-      <div className="bg-primary pt-32 pb-16 text-white">
-        <div className="container-custom text-center">
-          <h1 className="text-4xl md:text-5xl font-serif mb-4">Contact Us</h1>
-          <p className="text-white/70 max-w-2xl mx-auto">We are here to assist you with your booking and answer any questions.</p>
+      {/* Header - The Arrival */}
+      <section className="relative h-[50vh] flex items-center justify-center bg-stone-950 overflow-hidden">
+        <div className="absolute inset-0 opacity-30">
+          <img 
+            src="/gate.jpg" 
+            className="w-full h-full object-cover" 
+            alt="Lodge Entrance"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#FDFCFB]" />
         </div>
-      </div>
+        <div className="relative z-10 text-center">
+          <motion.span 
+            initial={{ opacity: 0, letterSpacing: "0.2em" }}
+            animate={{ opacity: 1, letterSpacing: "0.5em" }}
+            className="text-stone-400 font-bold uppercase text-[10px] mb-6 block"
+          >
+            Personalized Service
+          </motion.span>
+          <motion.h1 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-5xl md:text-7xl font-serif italic text-stone-800"
+          >
+            The Concierge
+          </motion.h1>
+        </div>
+      </section>
 
-      <div className="container-custom section-padding">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div className="container-custom pb-32 -mt-16 relative z-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           
-          {/* Contact Info */}
-          <div>
-            <h2 className="text-3xl font-serif text-primary mb-8">Get In Touch</h2>
-            <div className="space-y-8">
-              <div className="flex gap-4">
-                <div className="w-12 h-12 bg-muted flex items-center justify-center text-primary shrink-0">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-lg mb-1">Our Location</h4>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Off M5 Lakeshore Road<br />
-                    Salima, Malawi
+          {/* Contact Details - Elegant Directory Style */}
+          <motion.div {...reveal} className="lg:col-span-5 space-y-16">
+            <div className="bg-white p-12 shadow-[20px_20px_60px_rgba(0,0,0,0.03)] border border-stone-100">
+              <h2 className="text-3xl font-serif italic mb-12 text-stone-800">Direct Channels</h2>
+              
+              <div className="space-y-10">
+                <div className="group cursor-default">
+                  <div className="flex items-center gap-4 mb-4">
+                    <MapPin strokeWidth={1} className="w-5 h-5 text-stone-400" />
+                    <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-300 group-hover:text-stone-800 transition-colors">Location</span>
+                  </div>
+                  <p className="text-stone-500 font-light leading-relaxed pl-9">
+                    Off M5 Lakeshore Road, <br />
+                    Salima, Malawi — <span className="italic text-stone-400">The Senga Bay Precinct</span>
                   </p>
-                  <p className="text-sm text-secondary mt-2">15km from Salima Town Center</p>
                 </div>
-              </div>
 
-              <div className="flex gap-4">
-                <div className="w-12 h-12 bg-muted flex items-center justify-center text-primary shrink-0">
-                  <Phone className="w-5 h-5" />
+                <div className="group cursor-default">
+                  <div className="flex items-center gap-4 mb-4">
+                    <Phone strokeWidth={1} className="w-5 h-5 text-stone-400" />
+                    <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-300 group-hover:text-stone-800 transition-colors">Voice</span>
+                  </div>
+                  <div className="pl-9 space-y-1">
+                    <p className="text-stone-500 font-light">+265 999 123 456 <span className="text-[9px] uppercase ml-2 text-stone-300 tracking-tighter">(Reservations)</span></p>
+                    <p className="text-stone-500 font-light">+265 888 123 456 <span className="text-[9px] uppercase ml-2 text-stone-300 tracking-tighter">(Direct)</span></p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-bold text-lg mb-1">Phone</h4>
-                  <p className="text-muted-foreground">Reservations: +265 999 123 456</p>
-                  <p className="text-muted-foreground">Reception: +265 888 123 456</p>
-                </div>
-              </div>
 
-              <div className="flex gap-4">
-                <div className="w-12 h-12 bg-muted flex items-center justify-center text-primary shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-lg mb-1">Email</h4>
-                  <p className="text-muted-foreground">info@ubunthulodge.com</p>
-                  <p className="text-muted-foreground">events@ubunthulodge.com</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="w-12 h-12 bg-muted flex items-center justify-center text-primary shrink-0">
-                  <Clock className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-lg mb-1">Reception Hours</h4>
-                  <p className="text-muted-foreground">24 Hours / 7 Days a week</p>
+                <div className="group cursor-default">
+                  <div className="flex items-center gap-4 mb-4">
+                    <Mail strokeWidth={1} className="w-5 h-5 text-stone-400" />
+                    <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-300 group-hover:text-stone-800 transition-colors">Correspondence</span>
+                  </div>
+                  <p className="text-stone-500 font-light pl-9 italic">concierge@ubunthulodge.com</p>
                 </div>
               </div>
             </div>
 
-            {/* Map Placeholder */}
-            <div className="mt-12 w-full h-64 bg-gray-200 rounded-sm relative overflow-hidden group">
-              <div className="absolute inset-0 flex items-center justify-center bg-gray-300">
-                <span className="text-muted-foreground font-medium">Map Integration Placeholder</span>
-              </div>
-              {/* In a real app, embed Google Maps iframe here */}
+            {/* Map - Visual Integration */}
+            <div className="relative aspect-video overflow-hidden grayscale opacity-80 hover:opacity-100 transition-all duration-1000 border border-stone-100 shadow-sm">
+              <div className="absolute inset-0 bg-stone-900/10 pointer-events-none" />
+               
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.6766024623126!2d34.4267!3d-13.7804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQ2JzQ5LjQiUyAzNMKwMjUnMzYuMSJF!5e0!3m2!1sen!2smw!4v1620000000000!5m2!1sen!2smw" 
-                className="w-full h-full border-0 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.54!2d34.4!3d-13.7!" 
+                className="w-full h-full border-0" 
+                allowFullScreen={true}
                 loading="lazy"
               ></iframe>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Form */}
-          <div>
-            <BookingForm />
-          </div>
+          {/* Inquiry Form - Card Style */}
+          <motion.div 
+            {...reveal} 
+            transition={{ delay: 0.2 }}
+            className="lg:col-span-7"
+          >
+            <div className="bg-white p-12 md:p-16 shadow-[30px_30px_80px_rgba(0,0,0,0.04)] border border-stone-100">
+              <div className="mb-12">
+                <h2 className="text-4xl font-serif mb-4 text-stone-800">Enquiry Registry</h2>
+                <p className="text-stone-400 font-light italic text-sm">Please provide your details for a bespoke proposal.</p>
+              </div>
+              
+              <BookingForm />
+              
+              <div className="mt-12 pt-12 border-t border-stone-50">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-stone-300">Est. Response Time: 1-2 Hours</span>
+                  <div className="flex gap-4">
+                    <div className="w-1 h-1 bg-stone-200 rounded-full" />
+                    <div className="w-1 h-1 bg-stone-200 rounded-full" />
+                    <div className="w-1 h-1 bg-stone-800 rounded-full" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
         </div>
       </div>

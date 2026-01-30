@@ -1,112 +1,149 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { SectionHeader } from "@/components/SectionHeader";
 import { BookingForm } from "@/components/BookingForm";
-import { Check, User, Square } from "lucide-react";
+import { Wifi, Wind, Coffee, Maximize, User, ArrowRight } from "lucide-react";
 
 export default function Accommodation() {
   const rooms = [
     {
-      title: "Executive Suite",
-      description: "Our premier accommodation offering unrivaled luxury and space. The Executive Suite features a separate living area, a king-sized four-poster bed, and a private balcony overlooking the manicured gardens.",
-      amenities: ["King Size Bed", "Private Balcony", "Separate Living Area", "Work Desk", "55-inch Smart TV", "Mini Bar"],
+      title: "The Executive Suite",
+      subtitle: "Lake View • Premier",
+      description: "A sanctuary designed for the uncompromising traveler. The Executive Suite merges expansive living quarters with a private balcony offering panoramic views of the manicured gardens and the lake beyond. It features a dedicated workspace and a four-poster king bed draped in high-thread-count linens.",
+      amenities: ["King Master Bed", "Private Terrace", "Lounge Area", "Executive Desk", "Smart Entertainment", "Mini Bar"],
       size: "65 m²",
       occupancy: "2 Adults",
-      // Unsplash: Luxury hotel suite living room
-      image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=2070&auto=format&fit=crop"
+      image: "/standardroom.jpg"
     },
     {
-      title: "Deluxe Room",
-      description: "Elegant and spacious, the Deluxe Room is designed for comfort and style. Featuring contemporary decor with Malawian accents, it provides a serene environment for relaxation or work.",
-      amenities: ["Queen Size Bed", "En-suite Bathroom", "Work Station", "40-inch TV", "Tea & Coffee Maker", "Garden View"],
+      title: "Deluxe Garden Room",
+      subtitle: "Courtyard • Quiet",
+      description: "Elegant and spacious, the Deluxe Room is an exercise in contemporary Malawian aesthetics. The room is acoustically treated for silence, providing a serene environment for deep work or restoration. The en-suite bathroom features a rain shower and artisanal toiletries.",
+      amenities: ["Queen Bed", "En-suite Rain Shower", "Work Station", "Climate Control", "Artisan Coffee", "Garden Access"],
       size: "45 m²",
       occupancy: "2 Adults",
-      // Unsplash: Bright hotel room interior
-      image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=1974&auto=format&fit=crop"
+      image: "/kitchenfront.jpg"
     },
     {
-      title: "Standard Room",
-      description: "Perfect for the business traveler, our Standard Rooms offer functionality without compromising on style. Enjoy a restful night's sleep in sophisticated surroundings.",
-      amenities: ["Double Bed", "Shower", "Writing Desk", "High-speed Wi-Fi", "Climate Control", "In-room Safe"],
+      title: "Standard Residence",
+      subtitle: "Main Wing • Efficient",
+      description: "Perfect for the transient professional, our Standard Rooms offer high-functionality without compromising on style. Featuring high-speed connectivity and a minimalist design ethos, it ensures a restful night in sophisticated surroundings.",
+      amenities: ["Double Bed", "Walk-in Shower", "Writing Desk", "Fiber Wi-Fi", "In-room Safe", "Daily Housekeeping"],
       size: "32 m²",
       occupancy: "2 Adults",
-      // Unsplash: Cozy modern bedroom
-      image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070&auto=format&fit=crop"
+      image: "/pool.jpg"
     }
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-[#FDFCFB] text-stone-900 selection:bg-stone-200">
       <Navigation />
       
-      {/* Header */}
-      <div className="bg-primary pt-32 pb-16 text-white">
-        <div className="container-custom text-center">
-          <h1 className="text-4xl md:text-5xl font-serif mb-4">Our Accommodation</h1>
-          <p className="text-white/70 max-w-2xl mx-auto">Experience refined comfort in our thoughtfully designed rooms and suites.</p>
+      {/* Static Editorial Hero */}
+      <section className="relative h-[65vh] w-full">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/standardroom.jpg
+        >
+          <div className="absolute inset-0 bg-stone-900/40" />
         </div>
-      </div>
+        <div className="relative h-full container-custom flex flex-col justify-center items-center text-center z-10">
+          <span className="text-white/80 text-[10px] font-bold uppercase tracking-[0.4em] mb-6">The Private Collection</span>
+          <h1 className="text-5xl md:text-7xl font-serif text-white italic">Sleep in Serenity</h1>
+        </div>
+      </section>
 
-      <div className="container-custom section-padding">
-        <div className="space-y-24">
+      {/* The Collection List */}
+      <div className="container-custom py-32">
+        <div className="space-y-32">
           {rooms.map((room, index) => (
-            <div key={index} className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 items-center`}>
-              <div className="w-full lg:w-1/2">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-sm group shadow-lg">
-                  <img 
-                    src={room.image} 
-                    alt={room.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-              </div>
-              <div className="w-full lg:w-1/2">
-                <span className="text-secondary text-xs font-bold tracking-[0.2em] uppercase mb-2 block">Luxury Living</span>
-                <h2 className="text-3xl md:text-4xl font-serif text-primary mb-6">{room.title}</h2>
-                <p className="text-muted-foreground leading-relaxed mb-8">
-                  {room.description}
-                </p>
+            <div key={index} className="group">
+              <div className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-16 lg:gap-24 items-center`}>
                 
-                <div className="flex gap-6 mb-8 border-b border-border pb-6">
-                  <div className="flex items-center gap-2 text-sm text-primary font-medium">
-                    <Square className="w-4 h-4 text-secondary" />
-                    {room.size}
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-primary font-medium">
-                    <User className="w-4 h-4 text-secondary" />
-                    {room.occupancy}
+                {/* Image Side */}
+                <div className="w-full lg:w-1/2">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+                    <img 
+                      src={room.image} 
+                      alt={room.title} 
+                      className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-1000 ease-out"
+                    />
+                    <div className="absolute inset-0 border border-black/5" />
                   </div>
                 </div>
 
-                <h4 className="font-serif text-lg mb-4">Room Amenities</h4>
-                <div className="grid grid-cols-2 gap-3 mb-8">
-                  {room.amenities.map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Check className="w-4 h-4 text-secondary" />
-                      {item}
+                {/* Content Side */}
+                <div className="w-full lg:w-1/2 flex flex-col justify-center">
+                  <span className="text-stone-400 text-[10px] font-bold tracking-[0.3em] uppercase mb-4 block">
+                    {room.subtitle}
+                  </span>
+                  <h2 className="text-4xl font-serif text-stone-900 mb-8">{room.title}</h2>
+                  
+                  {/* Technical Specs - Fine Lines */}
+                  <div className="flex items-center gap-8 border-y border-stone-200 py-4 mb-8">
+                    <div className="flex items-center gap-3">
+                      <Maximize strokeWidth={1} className="w-4 h-4 text-stone-400" />
+                      <span className="text-xs font-medium uppercase tracking-wider text-stone-600">{room.size}</span>
                     </div>
-                  ))}
+                    <div className="w-[1px] h-4 bg-stone-200" />
+                    <div className="flex items-center gap-3">
+                      <User strokeWidth={1} className="w-4 h-4 text-stone-400" />
+                      <span className="text-xs font-medium uppercase tracking-wider text-stone-600">{room.occupancy}</span>
+                    </div>
+                  </div>
+
+                  <p className="text-stone-500 leading-relaxed font-light mb-10 text-lg">
+                    {room.description}
+                  </p>
+                  
+                  <div className="mb-10">
+                    <span className="text-[10px] uppercase font-bold text-stone-400 tracking-widest block mb-4">Features</span>
+                    <div className="grid grid-cols-2 gap-y-3 gap-x-4">
+                      {room.amenities.map((item, i) => (
+                        <div key={i} className="flex items-center gap-3">
+                          <div className="w-1 h-1 bg-stone-300 rounded-full" />
+                          <span className="text-sm font-light text-stone-600">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <a href="#booking-form" className="inline-flex items-center self-start text-xs font-bold uppercase tracking-[0.3em] text-stone-900 border-b border-stone-300 pb-2 hover:border-stone-900 hover:text-stone-600 transition-all duration-300">
+                    Check Availability <ArrowRight className="ml-4 w-3 h-3" />
+                  </a>
                 </div>
-                
-                <a href="#booking-form">
-                  <button className="btn-primary">Book This Room</button>
-                </a>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Booking Form Section */}
-      <div id="booking-form" className="bg-muted/30 py-20">
+      {/* Booking Form - Stationary Style */}
+      <div id="booking-form" className="bg-stone-50 border-t border-stone-100 py-32">
         <div className="container-custom">
-          <SectionHeader 
-            subtitle="Reservations"
-            title="Secure Your Stay"
-            description="Ready to experience Ubunthu Lodge? Send us an inquiry and our team will confirm availability."
-          />
-          <div className="max-w-4xl mx-auto">
-            <BookingForm />
+          <div className="flex flex-col lg:flex-row gap-16">
+            <div className="lg:w-1/3">
+              <h2 className="text-3xl font-serif text-stone-800 mb-6">Reservation Enquiry</h2>
+              <p className="text-stone-500 font-light leading-relaxed mb-8">
+                To maintain the privacy and exclusivity of our guests, we process all reservations personally. Please detail your requirements, and our concierge will secure your allocation.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 text-sm text-stone-600">
+                  <Wifi strokeWidth={1} className="w-4 h-4" />
+                  <span>High-Speed Fiber Included</span>
+                </div>
+                <div className="flex items-center gap-4 text-sm text-stone-600">
+                  <Wind strokeWidth={1} className="w-4 h-4" />
+                  <span>Climate Controlled Suites</span>
+                </div>
+                <div className="flex items-center gap-4 text-sm text-stone-600">
+                  <Coffee strokeWidth={1} className="w-4 h-4" />
+                  <span>Breakfast Service Included</span>
+                </div>
+              </div>
+            </div>
+            <div className="lg:w-2/3 bg-white p-10 border border-stone-100 shadow-sm">
+              <BookingForm />
+            </div>
           </div>
         </div>
       </div>
