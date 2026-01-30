@@ -32,6 +32,8 @@ export function BookingForm() {
       name: "",
       email: "",
       phone: "",
+      checkIn: "",
+      checkOut: "",
       guests: 1,
       message: "",
     },
@@ -140,7 +142,7 @@ export function BookingForm() {
                   <FormItem>
                     <FormLabel>Phone Number</FormLabel>
                     <FormControl>
-                      <Input type="tel" placeholder="+265 999 123 456" className="rounded-none h-12 bg-gray-50 border-gray-200 focus:border-primary transition-colors" {...field} />
+                       <Input type="tel" placeholder="+265 999 123 456" className="rounded-none h-12 bg-gray-50 border-gray-200 focus:border-primary transition-colors" {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -272,7 +274,5 @@ export function BookingForm() {
         </Form>
       </motion.div>
     </div>
-  );
-}
   );
 }
