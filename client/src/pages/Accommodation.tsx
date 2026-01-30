@@ -7,18 +7,18 @@ export default function Accommodation() {
   const rooms = [
     {
       title: "The Executive Suite",
-      subtitle: "Lake View • Premier",
-      description: "A sanctuary designed for the uncompromising traveler. The Executive Suite merges expansive living quarters with a private balcony offering panoramic views of the manicured gardens and the lake beyond. It features a dedicated workspace and a four-poster king bed draped in high-thread-count linens.",
+      subtitle: "Pool View • Premier",
+      description: "A sanctuary designed for the uncompromising traveler. The Executive Suite merges expansive living quarters with a private balcony offering panoramic views of the stunning pool and elegant bar beyond. It features a dedicated workspace and a four-poster king bed draped in high-thread-count linens.",
       amenities: ["King Master Bed", "Private Terrace", "Lounge Area", "Executive Desk", "Smart Entertainment", "Mini Bar"],
       size: "65 m²",
       occupancy: "2 Adults",
       image: "/standardroom.jpg"
     },
     {
-      title: "Deluxe Garden Room",
+      title: "Deluxe Pool Room",
       subtitle: "Courtyard • Quiet",
       description: "Elegant and spacious, the Deluxe Room is an exercise in contemporary Malawian aesthetics. The room is acoustically treated for silence, providing a serene environment for deep work or restoration. The en-suite bathroom features a rain shower and artisanal toiletries.",
-      amenities: ["Queen Bed", "En-suite Rain Shower", "Work Station", "Climate Control", "Artisan Coffee", "Garden Access"],
+      amenities: ["Queen Bed", "En-suite Rain Shower", "Work Station", "Climate Control", "Artisan Coffee", "Pool & Bar Access"],
       size: "45 m²",
       occupancy: "2 Adults",
       image: "/kitchenfront.jpg"
