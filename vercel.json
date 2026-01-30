@@ -2,6 +2,5 @@
   "version": 2,
   "buildCommand": "bun run build",
   "outputDirectory": "dist/public",
-  "installCommand": "bun install",
-  "framework": "vite"
+  "installCommand": "bun install"
 }
