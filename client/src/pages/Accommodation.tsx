@@ -41,9 +41,10 @@ export default function Accommodation() {
       {/* Static Editorial Hero */}
       <section className="relative h-[65vh] w-full">
         <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/standardroom.jpg
-        >
+  className="absolute inset-0 bg-cover bg-center"
+  style={{ backgroundImage: "url('/standardroom.jpg')" }}
+>
+
           <div className="absolute inset-0 bg-stone-900/40" />
         </div>
         <div className="relative h-full container-custom flex flex-col justify-center items-center text-center z-10">

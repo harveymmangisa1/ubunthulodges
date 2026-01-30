@@ -131,7 +131,7 @@ export default function Conferences() {
             <p className="text-stone-500 font-light mb-12">Our events team provides bespoke proposals within 24 hours for all corporate enquiries.</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-12">
               <a href="mailto:events@ubunthulodge.com" className="group flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] text-stone-900">
-                Email the Atelier <ChevronRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                Email Ubunthu <ChevronRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
               </a>
               <a href="tel:+265999123456" className="group flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] text-stone-900">
                 Direct Line <ChevronRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
