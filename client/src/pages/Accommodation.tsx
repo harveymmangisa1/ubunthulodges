@@ -172,7 +172,7 @@ export default function Accommodation() {
               <div className="space-y-4">
                 <div className="flex items-center gap-4 text-sm text-stone-600">
                   <Wifi strokeWidth={1} className="w-4 h-4" />
-                  <span>High-Speed Fiber Included</span>
+                  <span>High-Speed Wifi Included</span>
                 </div>
                 <div className="flex items-center gap-4 text-sm text-stone-600">
                   <Wind strokeWidth={1} className="w-4 h-4" />

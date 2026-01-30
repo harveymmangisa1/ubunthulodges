@@ -2,8 +2,9 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { ScrollReveal, ScrollRevealStaggered } from "@/components/ScrollReveal";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { X, Maximize2, ArrowLeft, ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, Maximize2, ArrowLeft, ArrowRight, Camera } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -13,40 +14,24 @@ export default function Gallery() {
     {
       category: "rooms",
       title: "Luxury Accommodation",
-      description: "Experience the elegance and comfort of our premium rooms and suites",
+      description: "Sophisticated interiors designed for the modern traveler.",
       images: [
-        { src: "/standardroom.jpg", alt: "Executive Suite Interior", caption: "Spacious Executive Suite with king bed and modern amenities" },
-        { src: "/kitchenfront.jpg", alt: "Standard Room Comfort", caption: "Comfortable Standard Room with twin beds" },
-        { src: "/pool.jpg", alt: "Room View", caption: "Beautiful room view with modern furnishings" },
-        { src: "/standardroom.jpg", alt: "Bathroom Facilities", caption: "Modern bathroom with private geyser system" },
-        { src: "/kitchenfront.jpg", alt: "Workspace", caption: "Dedicated workspace in Executive Suite" },
-        { src: "/pool.jpg", alt: "Room Details", caption: "Attention to detail in every room" }
+        { src: "/standardroom.jpg", alt: "The Executive Suite", caption: "Spacious master bedroom with premium linens", featured: true },
+        { src: "/kitchenfront.jpg", alt: "En-suite Elegance", caption: "Modern bathroom fixtures and rainfall shower" },
+        { src: "/pool.jpg", alt: "Room Perspective", caption: "Curated furniture and local art pieces" },
+        { src: "/standardroom.jpg", alt: "Standard Comfort", caption: "Efficiency meets elegance in our standard collection" },
+        { src: "/kitchenfront.jpg", alt: "Executive Workspace", caption: "Dedicated fiber-optic connected workstation" },
       ]
     },
     {
       category: "facilities",
-      title: "World-Class Facilities",
-      description: "Discover our premium facilities designed for business and leisure",
+      title: "The Experience",
+      description: "From rooftop views to culinary excellence.",
       images: [
-        { src: "/pool.jpg", alt: "Infinity Pool", caption: "Stunning rooftop infinity pool with panoramic views" },
-        { src: "/kitchenfront.jpg", alt: "Modern Gym", caption: "State-of-the-art fitness equipment" },
-        { src: "/standardroom.jpg", alt: "Conference Hall", caption: "Spacious conference hall for corporate events" },
-        { src: "/pool.jpg", alt: "Pool Bar", caption: "Elegant poolside bar serving refreshments" },
-        { src: "/kitchenfront.jpg", alt: "Lounge Area", caption: "Comfortable lounge for relaxation" },
-        { src: "/standardroom.jpg", alt: "Parking Area", caption: "Secure parking with 24/7 surveillance" }
-      ]
-    },
-    {
-      category: "exterior",
-      title: "Stunning Architecture",
-      description: "Admire the beautiful exterior design and grounds of Ubunthu Lodge",
-      images: [
-        { src: "/hero.jpg", alt: "Lodge Exterior", caption: "Majestic exterior of Ubunthu Lodge" },
-        { src: "/pool.jpg", alt: "Main Entrance", caption: "Welcoming main entrance with modern design" },
-        { src: "/kitchenfront.jpg", alt: "Garden Area", caption: "Beautifully maintained outdoor spaces" },
-        { src: "/standardroom.jpg", alt: "Night View", caption: "Spectacular night illumination" },
-        { src: "/pool.jpg", alt: "Terrace View", caption: "Scenic terrace with overlooking views" },
-        { src: "/kitchenfront.jpg", alt: "Architectural Details", caption: "Fine architectural craftsmanship" }
+        { src: "/pool.jpg", alt: "Rooftop Infinity", caption: "Uninterrupted views of the city skyline", featured: true },
+        { src: "/kitchenfront.jpg", alt: "Culinary Space", caption: "Our modern kitchen producing world-class fusion" },
+        { src: "/standardroom.jpg", alt: "The Boardroom", caption: "Professional spaces for high-level meetings" },
+        { src: "/pool.jpg", alt: "Golden Hour", caption: "Poolside ambiance during the sunset hours" },
       ]
     }
   ];
@@ -61,214 +46,185 @@ export default function Gallery() {
 
   const currentImage = selectedImage !== null ? filteredImages[selectedImage] : null;
 
-  const openLightbox = (index: number) => {
-    setSelectedImage(index);
-  };
-
-  const closeLightbox = () => {
-    setSelectedImage(null);
-  };
-
+  // Navigation Logic
   const navigateImage = (direction: 'prev' | 'next') => {
     if (selectedImage === null) return;
-    
     const newIndex = direction === 'prev' 
       ? (selectedImage - 1 + filteredImages.length) % filteredImages.length
       : (selectedImage + 1) % filteredImages.length;
-    
     setSelectedImage(newIndex);
   };
 
+  // Keyboard Support
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImage === null) return;
+      if (e.key === 'ArrowRight') navigateImage('next');
+      if (e.key === 'ArrowLeft') navigateImage('prev');
+      if (e.key === 'Escape') setSelectedImage(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImage]);
+
   return (
-    <div className="min-h-screen flex flex-col bg-[#FDFCFB] text-stone-900 selection:bg-stone-200">
+    <div className="min-h-screen flex flex-col bg-stone-50 text-stone-900 selection:bg-stone-900 selection:text-white">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="relative h-[60vh] w-full overflow-hidden">
-        <div className="absolute inset-0">
-          <img 
-            src="/hero.jpg"
-            alt="Ubunthu Lodge Gallery"
-            className="w-full h-full object-cover opacity-70"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-stone-900/50 via-transparent to-stone-900/70" />
-        </div>
+      {/* Editorial Hero */}
+      <section className="relative h-[70vh] w-full overflow-hidden bg-stone-900">
+        <motion.img 
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.6 }}
+          transition={{ duration: 1.5 }}
+          src="/hero.jpg"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-50 via-transparent to-transparent" />
         
-        <div className="relative z-10 container-custom h-full flex flex-col justify-center items-center text-center">
-          <ScrollReveal direction="up" delay={0.2}>
-            <span className="text-white/80 font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">Virtual Tour</span>
-            <h1 className="text-5xl md:text-7xl font-serif text-white italic mb-8">
-              Experience <span className="text-stone-300">Ubunthu Lodge</span>
+        <div className="absolute inset-0 container-custom flex flex-col justify-center items-center text-center">
+          <ScrollReveal direction="up">
+            <div className="flex items-center justify-center gap-3 mb-6">
+                <Camera className="w-4 h-4 text-white/60" />
+                <span className="text-white/80 font-bold uppercase tracking-[0.4em] text-[10px]">The Visual Journal</span>
+            </div>
+            <h1 className="text-6xl md:text-8xl font-serif text-white mb-8">
+              Lodge <span className="italic font-light">Gallery</span>
             </h1>
-            <p className="text-white/90 text-lg max-w-2xl mx-auto leading-relaxed font-light">
-              Take a visual journey through our luxurious accommodations, world-class facilities, and stunning architecture
+            <p className="text-white/70 text-lg max-w-xl mx-auto font-light leading-relaxed">
+              A curated window into the Ubunthu experience. Explore our spaces, from the serenity of our suites to the energy of our social areas.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Category Filter */}
-      <section className="py-8 border-b border-stone-200 sticky top-20 z-40 bg-[#FDFCFB]/95 backdrop-blur-sm">
-        <div className="container-custom">
-          <ScrollReveal direction="up" delay={0.3}>
-            <div className="flex flex-wrap justify-center gap-4">
-              {[
-                { id: "all", label: "All Images" },
-                { id: "rooms", label: "Rooms" },
-                { id: "facilities", label: "Facilities" },
-                { id: "exterior", label: "Exterior" }
-              ].map((category) => (
-                <motion.button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`px-6 py-3 text-xs font-bold uppercase tracking-[0.3em] border-b-2 transition-all duration-300 ${
-                    selectedCategory === category.id
-                      ? "border-stone-900 text-stone-900"
-                      : "border-transparent text-stone-500 hover:text-stone-700 hover:border-stone-300"
-                  }`}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  {category.label}
-                </motion.button>
-              ))}
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Gallery Grid */}
-      <section className="py-16">
-        <div className="container-custom">
-          <ScrollRevealStaggered 
-            direction="up" 
-            staggerDelay={0.1}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {filteredImages.map((image, index) => (
-              <motion.div
-                key={index}
-                className="group relative aspect-[4/3] overflow-hidden cursor-pointer bg-stone-100"
-                onClick={() => openLightbox(index)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+      {/* Dynamic Filter Bar */}
+      <nav className="sticky top-20 z-40 bg-white/80 backdrop-blur-md border-y border-stone-200">
+        <div className="container-custom flex justify-center overflow-x-auto no-scrollbar py-2">
+          <div className="flex gap-8">
+            {[
+              { id: "all", label: "All Works" },
+              { id: "rooms", label: "Suites" },
+              { id: "facilities", label: "Spaces" },
+              { id: "exterior", label: "Exterior" }
+            ].map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={cn(
+                  "py-4 text-[10px] font-bold uppercase tracking-[0.2em] transition-all relative group",
+                  selectedCategory === cat.id ? "text-stone-900" : "text-stone-400 hover:text-stone-600"
+                )}
               >
-                <img 
-                  src={image.src} 
-                  alt={image.alt}
-                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                  <h3 className="text-white font-serif text-xl mb-2">{image.alt}</h3>
-                  <p className="text-white/80 text-sm font-light line-clamp-2">{image.caption}</p>
-                </div>
-                
-                <motion.div 
-                  className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  whileHover={{ scale: 1.1, rotate: 90 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Maximize2 className="w-4 h-4 text-stone-900" />
-                </motion.div>
-              </motion.div>
+                {cat.label}
+                {selectedCategory === cat.id && (
+                  <motion.div layoutId="catUnderline" className="absolute bottom-0 left-0 right-0 h-0.5 bg-stone-900" />
+                )}
+              </button>
             ))}
-          </ScrollRevealStaggered>
+          </div>
         </div>
-      </section>
+      </nav>
 
-      {/* Section Descriptions */}
-      <section className="py-20 border-y border-stone-200">
+      {/* Masonry Style Grid */}
+      <section className="py-24">
         <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {gallerySections.map((section, index) => (
-              <ScrollReveal key={section.category} direction="up" delay={0.5 + index * 0.2}>
-                <div className="text-center">
-                  <h3 className="text-2xl font-serif text-stone-900 mb-4">{section.title}</h3>
-                  <p className="text-stone-600 font-light leading-relaxed mb-6">{section.description}</p>
-                  <div className="text-stone-500 text-sm">
-                    {section.images.length} Images
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+            <AnimatePresence mode="popLayout">
+              {filteredImages.map((image, index) => (
+                <motion.div
+                  layout
+                  key={image.src + index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.4 }}
+                  className="relative group cursor-none overflow-hidden bg-stone-200"
+                  onClick={() => setSelectedImage(index)}
+                >
+                  <img 
+                    src={image.src} 
+                    alt={image.alt}
+                    className="w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  />
+                  
+                  {/* Custom Cursor Overlay on Hover */}
+                  <div className="absolute inset-0 bg-stone-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
+                        <Maximize2 className="text-white w-5 h-5" />
+                    </div>
                   </div>
-                </div>
-              </ScrollReveal>
-            ))}
+
+                  {/* Caption Info */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-white/60 mb-1">{image.category}</p>
+                    <h3 className="text-white font-serif text-lg italic">{image.alt}</h3>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         </div>
       </section>
 
-      {/* Lightbox */}
+      {/* Cinematic Lightbox */}
       <AnimatePresence>
         {selectedImage !== null && currentImage && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
-            onClick={closeLightbox}
+            className="fixed inset-0 z-[100] bg-stone-950 flex flex-col"
+            onClick={() => setSelectedImage(null)}
           >
-            <motion.button
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
-              className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors"
-              onClick={closeLightbox}
-            >
-              <X className="w-8 h-8" />
-            </motion.button>
+            {/* Header */}
+            <div className="p-6 flex justify-between items-center text-white relative z-10">
+                <span className="text-[10px] font-bold tracking-[0.3em] uppercase opacity-50">
+                    {selectedImage + 1} / {filteredImages.length}
+                </span>
+                <button 
+                  onClick={() => setSelectedImage(null)}
+                  className="hover:rotate-90 transition-transform duration-300"
+                >
+                    <X className="w-6 h-6" />
+                </button>
+            </div>
 
-            <motion.button
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className="absolute left-6 text-white/80 hover:text-white transition-colors"
-              onClick={(e) => {
-                e.stopPropagation();
-                navigateImage('prev');
-              }}
-            >
-              <ArrowLeft className="w-8 h-8" />
-            </motion.button>
+            {/* Main Image Container */}
+            <div className="flex-1 relative flex items-center justify-center p-4 md:p-12">
+                <motion.button
+                  className="absolute left-8 z-20 p-4 text-white/30 hover:text-white transition-colors hidden md:block"
+                  onClick={(e) => { e.stopPropagation(); navigateImage('prev'); }}
+                >
+                  <ArrowLeft className="w-10 h-10 stroke-1" />
+                </motion.button>
 
-            <motion.button
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.3 }}
-              className="absolute right-6 text-white/80 hover:text-white transition-colors"
-              onClick={(e) => {
-                e.stopPropagation();
-                navigateImage('next');
-              }}
-            >
-              <ArrowRight className="w-8 h-8" />
-            </motion.button>
+                <motion.img
+                  key={selectedImage}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.05 }}
+                  src={currentImage.src}
+                  className="max-w-full max-h-full object-contain shadow-2xl"
+                  onClick={(e) => e.stopPropagation()}
+                />
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5 }}
-              className="max-w-5xl max-h-[80vh] mx-auto"
-              onClick={(e) => e.stopPropagation()}
+                <motion.button
+                  className="absolute right-8 z-20 p-4 text-white/30 hover:text-white transition-colors hidden md:block"
+                  onClick={(e) => { e.stopPropagation(); navigateImage('next'); }}
+                >
+                  <ArrowRight className="w-10 h-10 stroke-1" />
+                </motion.button>
+            </div>
+
+            {/* Footer / Captions */}
+            <motion.div 
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className="p-12 text-center text-white"
             >
-              <img 
-                src={currentImage.src} 
-                alt={currentImage.alt}
-                className="w-full h-full object-contain"
-              />
-              <div className="text-center mt-6 text-white">
-                <h3 className="text-2xl font-serif mb-2">{currentImage.alt}</h3>
-                <p className="text-white/80 font-light">{currentImage.caption}</p>
-                <div className="text-white/60 text-sm mt-4">
-                  {selectedImage + 1} / {filteredImages.length}
-                </div>
-              </div>
+                <h3 className="text-3xl font-serif italic mb-2">{currentImage.alt}</h3>
+                <p className="text-stone-400 font-light max-w-xl mx-auto">{currentImage.caption}</p>
             </motion.div>
           </motion.div>
         )}

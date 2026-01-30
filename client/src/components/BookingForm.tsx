@@ -2,17 +2,17 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertInquirySchema, type InsertInquiry } from "@shared/schema";
 import { useCreateInquiry } from "@/hooks/use-inquiries";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { CalendarIcon, Loader2 } from "lucide-react";
+import { CalendarIcon, Loader2, Info, CheckCircle2 } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns";
+import { format, differenceInDays } from "date-fns";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { BookingCalculator } from "@/components/BookingCalculator";
 
 export function BookingForm() {
@@ -22,10 +22,9 @@ export function BookingForm() {
     bedType: 'single' | 'double';
     nights: number;
     roomRate: number;
-    subtotal: number;
     total: number;
   } | null>(null);
-  
+
   const form = useForm<InsertInquiry>({
     resolver: zodResolver(insertInquirySchema),
     defaultValues: {
@@ -39,81 +38,98 @@ export function BookingForm() {
     },
   });
 
+  // Automatically calculate nights if both dates are present
+  const checkIn = form.watch("checkIn");
+  const checkOut = form.watch("checkOut");
+
+  useEffect(() => {
+    if (checkIn && checkOut) {
+      const days = differenceInDays(new Date(checkOut), new Date(checkIn));
+      // You can pass this logic to your BookingCalculator via props if needed
+    }
+  }, [checkIn, checkOut]);
+
   function onSubmit(data: InsertInquiry) {
     mutation.mutate(data, {
       onSuccess: () => {
         form.reset();
+        setBookingCalc(null);
       }
     });
   }
 
   return (
-    <div className="space-y-8">
-      {/* Booking Calculator */}
-      <BookingCalculator 
-        onCalculate={(calculation) => {
-          setBookingCalc(calculation);
-        }}
-      />
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      {/* Left Column: Calculator & Summary (The 'Hook') */}
+      <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+        <BookingCalculator 
+          onCalculate={(calculation) => setBookingCalc(calculation)}
+        />
 
-      {/* Booking Form */}
+        <AnimatePresence>
+          {bookingCalc && (
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="bg-stone-900 text-white p-8 rounded-sm shadow-2xl relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 p-4 opacity-10">
+                <CheckCircle2 size={120} />
+              </div>
+              <h4 className="text-[10px] uppercase tracking-[0.3em] text-stone-400 mb-8">Reservation Summary</h4>
+              
+              <div className="space-y-4 mb-8">
+                <div className="flex justify-between text-sm">
+                  <span className="font-light text-stone-400">Accomodation</span>
+                  <span className="capitalize">{bookingCalc.roomType} Suite</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="font-light text-stone-400">Duration</span>
+                  <span>{bookingCalc.nights} Nights</span>
+                </div>
+                <div className="h-[1px] bg-stone-800 w-full my-4" />
+                <div className="flex justify-between items-end">
+                  <span className="text-sm font-light text-stone-400">Total Estimate</span>
+                  <span className="text-3xl font-serif italic text-white">
+                    K{bookingCalc.total.toLocaleString()}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex gap-3 p-4 bg-stone-800/50 rounded-sm text-[11px] leading-relaxed text-stone-300">
+                <Info className="shrink-0 w-4 h-4 text-stone-500" />
+                <p>Final pricing may vary based on seasonal demands and special requests.</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Right Column: The Form (The 'Commitment') */}
       <motion.div 
-        className="bg-white p-8 md:p-10 shadow-xl border border-border/50"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+        className="lg:col-span-7 bg-white p-8 md:p-12 border border-stone-100 shadow-sm"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
       >
-        <motion.h3 
-          className="text-2xl font-serif text-primary mb-2"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1, duration: 0.6 }}
-        >
-          Complete Your Reservation
-        </motion.h3>
-        
-        {/* Booking Summary */}
-        {bookingCalc && (
-          <motion.div 
-            className="bg-stone-50 p-6 rounded-lg mb-8 border border-stone-200"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-sm font-medium text-stone-700">
-                Selected: {bookingCalc.roomType === 'executive' ? 'Executive Suite' : 'Standard Room'} - {bookingCalc.bedType}
-              </span>
-              <span className="text-lg font-bold text-stone-900">
-                K{bookingCalc.total.toLocaleString()} total
-              </span>
-            </div>
-            <div className="text-xs text-stone-600">
-              {bookingCalc.nights} nights @ K{bookingCalc.roomRate.toLocaleString()}/night
-            </div>
-          </motion.div>
-        )}
-        
-        <motion.p 
-          className="text-muted-foreground mb-8 text-sm"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-        >
-          Fill out your details to confirm availability and complete your booking.
-        </motion.p>
-        
+        <div className="mb-10">
+          <h3 className="text-3xl font-serif text-stone-900 mb-2">Guest Details</h3>
+          <p className="text-stone-500 text-sm font-light">Please provide your contact information to finalize the enquiry.</p>
+        </div>
+
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Full Name</FormLabel>
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Full Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="John Doe" className="rounded-none h-12 bg-gray-50 border-gray-200 focus:border-primary transition-colors" {...field} />
+                      <Input placeholder="e.g. Alexander Malabwe" className="border-0 border-b border-stone-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-stone-900 transition-all bg-transparent h-10" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -124,9 +140,9 @@ export function BookingForm() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email Address</FormLabel>
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Email Address</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="john@example.com" className="rounded-none h-12 bg-gray-50 border-gray-200 focus:border-primary transition-colors" {...field} />
+                      <Input type="email" placeholder="alex@example.com" className="border-0 border-b border-stone-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-stone-900 transition-all bg-transparent h-10" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -134,142 +150,105 @@ export function BookingForm() {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <FormField
                 control={form.control}
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Phone Number</FormLabel>
                     <FormControl>
-                       <Input type="tel" placeholder="+265 999 123 456" className="rounded-none h-12 bg-gray-50 border-gray-200 focus:border-primary transition-colors" {...field} value={field.value || ""} />
+                       <Input type="tel" placeholder="+265..." className="border-0 border-b border-stone-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-stone-900 transition-all bg-transparent h-10" {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              
               <FormField
                 control={form.control}
                 name="guests"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Number of Guests</FormLabel>
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Total Guests</FormLabel>
                     <FormControl>
                       <select 
                         {...field} 
                         onChange={(e) => field.onChange(parseInt(e.target.value))}
-                        className="w-full h-12 px-4 bg-gray-50 border border-gray-200 focus:border-primary transition-colors rounded-none"
+                        className="w-full border-0 border-b border-stone-200 bg-transparent h-10 text-sm focus:outline-none focus:border-stone-900 transition-all cursor-pointer"
                       >
-                        <option value={1}>1 Guest</option>
-                        <option value={2}>2 Guests</option>
-                        <option value={3}>3 Guests</option>
-                        <option value={4}>4 Guests</option>
+                        {[1, 2, 3, 4].map(n => <option key={n} value={n}>{n} {n === 1 ? 'Guest' : 'Guests'}</option>)}
                       </select>
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
 
-            <FormField
-              control={form.control}
-              name="checkIn"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Check-in Date</FormLabel>
-                  <FormControl>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Check In */}
+              <FormField
+                control={form.control}
+                name="checkIn"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-bold text-stone-400 mb-2">Arrival</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full h-12 justify-start text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {field.value ? (
-                            format(new Date(field.value), "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
+                        <Button variant="outline" className={cn("justify-start text-left font-light border-stone-200 rounded-none h-12", !field.value && "text-muted-foreground")}>
+                          <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
+                          {field.value ? format(new Date(field.value), "PPP") : "Select Date"}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value ? new Date(field.value) : undefined}
-                          onSelect={(date) => field.onChange(date?.toISOString().split('T')[0])}
-                          disabled={(date) =>
-                            date < new Date()
-                          }
-                          initialFocus
-                        />
+                        <Calendar mode="single" selected={field.value ? new Date(field.value) : undefined} onSelect={(date) => field.onChange(date?.toISOString())} disabled={(date) => date < new Date()} />
                       </PopoverContent>
                     </Popover>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                  </FormItem>
+                )}
+              />
+              {/* Check Out */}
+              <FormField
+                control={form.control}
+                name="checkOut"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel className="text-[10px] uppercase tracking-widest font-bold text-stone-400 mb-2">Departure</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="outline" className={cn("justify-start text-left font-light border-stone-200 rounded-none h-12", !field.value && "text-muted-foreground")}>
+                          <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
+                          {field.value ? format(new Date(field.value), "PPP") : "Select Date"}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar mode="single" selected={field.value ? new Date(field.value) : undefined} onSelect={(date) => field.onChange(date?.toISOString())} disabled={(date) => date < (new Date(checkIn) || new Date())} />
+                      </PopoverContent>
+                    </Popover>
+                  </FormItem>
+                )}
+              />
+            </div>
 
             <FormField
               control={form.control}
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Special Requests</FormLabel>
+                  <FormLabel className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Preferences & Requests</FormLabel>
                   <FormControl>
-                    <motion.div
-                      whileFocus={{ scale: 1.02 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                    >
-                      <Textarea 
-                        placeholder="Enter any special requests"
-                        className="border-border/50 focus:border-primary transition-all focus:shadow-sm min-h-[100px]"
-                        {...field} 
-                        value={field.value || ""}
-                      />
-                    </motion.div>
+                    <Textarea placeholder="Dietary requirements, airport pickup, or special occasions..." className="rounded-none border-stone-200 focus:border-stone-900 bg-stone-50 min-h-[120px] font-light italic" {...field} value={field.value || ""} />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
 
-            <motion.button 
+            <Button 
               type="submit" 
-              className="w-full h-12 bg-secondary hover:bg-secondary/90 text-white font-medium uppercase tracking-widest text-sm rounded-none"
               disabled={mutation.isPending}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="w-full h-14 bg-stone-900 hover:bg-stone-800 text-white rounded-none uppercase tracking-[0.2em] text-xs font-bold transition-all"
             >
-              {mutation.isPending ? (
-                <motion.div 
-                  className="flex items-center justify-center"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  >
-                    <Loader2 className="mr-2 h-4 w-4" />
-                  </motion.div>
-                  Processing...
-                </motion.div>
-              ) : (
-                <motion.span
-                  whileHover={{ letterSpacing: "0.1em" }}
-                  transition={{ duration: 0.2 }}
-                >
-                  Submit Booking Request
-                </motion.span>
-              )}
-            </motion.button>
+              {mutation.isPending ? <Loader2 className="animate-spin" /> : "Request Reservation"}
+            </Button>
           </form>
         </Form>
       </motion.div>
