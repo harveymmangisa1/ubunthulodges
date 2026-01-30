@@ -221,10 +221,11 @@ export function BookingForm() {
                       whileFocus={{ scale: 1.02 }}
                       transition={{ type: "spring", stiffness: 400, damping: 17 }}
                     >
-                      <Input 
-                        placeholder="Enter your full name" 
-                        className="border-border/50 focus:border-primary transition-all focus:shadow-sm"
+                      <Textarea 
+                        placeholder="Enter any special requests"
+                        className="border-border/50 focus:border-primary transition-all focus:shadow-sm min-h-[100px]"
                         {...field} 
+                        value={field.value || ""}
                       />
                     </motion.div>
                   </FormControl>
@@ -233,7 +234,7 @@ export function BookingForm() {
             )}
           />
 
-          <motion.Button 
+          <motion.button 
             type="submit" 
             className="w-full h-12 bg-secondary hover:bg-secondary/90 text-white font-medium uppercase tracking-widest text-sm rounded-none"
             disabled={mutation.isPending}
@@ -263,7 +264,7 @@ export function BookingForm() {
                 Submit Inquiry
               </motion.span>
             )}
-          </motion.Button>
+          </motion.button>
         </form>
       </Form>
     </motion.div>

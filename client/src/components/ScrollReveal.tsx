@@ -1,5 +1,5 @@
 import { motion, useInView, useAnimation } from "framer-motion";
-import { useEffect, useRef, ReactNode } from "react";
+import { useEffect, useRef, ReactNode, Children } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -86,15 +86,17 @@ export function ScrollRevealStaggered({
 }: ScrollRevealStaggeredProps) {
   return (
     <div className={className}>
-      {children.map((child, index) => (
-        <ScrollReveal
-          key={index}
-          direction={direction}
-          delay={itemDelay + index * staggerDelay}
-        >
-          {child}
-        </ScrollReveal>
-      ))}
+      {Children.map(children, (child, index: number) => 
+        child ? (
+          <ScrollReveal
+            key={index}
+            direction={direction}
+            delay={itemDelay + index * staggerDelay}
+          >
+            {child}
+          </ScrollReveal>
+        ) : null
+      )}
     </div>
   );
 }

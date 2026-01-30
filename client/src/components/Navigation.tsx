@@ -19,6 +19,7 @@ export function Navigation() {
     { href: "/", label: "Home" },
     { href: "/accommodation", label: "Accommodation" },
     { href: "/dining", label: "Dining" },
+    { href: "/gallery", label: "Gallery" },
     { href: "/conferences", label: "Conferences" },
     { href: "/contact", label: "Contact" },
   ];

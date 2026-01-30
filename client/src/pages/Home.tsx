@@ -2,7 +2,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { ScrollReveal, ScrollRevealStaggered } from "@/components/ScrollReveal";
 import { Link } from "wouter";
-import { ArrowRight, Star, Shield, Flower2 } from "lucide-react";
+import { ArrowRight, Star, Shield, Car } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -179,11 +179,11 @@ export default function Home() {
                   whileHover={{ rotate: 15 }}
                   transition={{ duration: 0.6, ease: "easeInOut" }}
                 >
-                  <Flower2 strokeWidth={1} className="w-6 h-6 text-stone-400 mb-6" />
+                  <Car strokeWidth={1} className="w-6 h-6 text-stone-400 mb-6" />
                 </motion.div>
-                <h3 className="font-serif text-xl text-stone-800 mb-4 group-hover:text-stone-600 transition-colors">Botanical Grounds</h3>
+                <h3 className="font-serif text-xl text-stone-800 mb-4 group-hover:text-stone-600 transition-colors">Premium Facilities</h3>
                 <p className="text-sm text-stone-500 font-light leading-relaxed">
-                  Four acres of indigenous flora provide a natural sound barrier and a visual feast for the weary traveler.
+                  Modern gym, infinity pool, conference halls, and ample parking provide everything for business and leisure travelers.
                 </p>
               </motion.div>
             </ScrollReveal>
@@ -217,11 +217,10 @@ export default function Home() {
             </div>
           </ScrollReveal>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
             {[
-              { title: "The Presidential", img: "/standardroom.jpg" },
-              { title: "Pool Terrace", img: "/kitchenfront.jpg" },
-              { title: "Atrium Suite", img: "/pool.jpg" }
+              { title: "Executive Suite", img: "/standardroom.jpg" },
+              { title: "Standard Room", img: "/kitchenfront.jpg" }
             ].map((room, i) => (
               <ScrollReveal key={i} direction="up" delay={0.3 + i * 0.15}>
                 <Link href="/accommodation">
@@ -242,7 +241,7 @@ export default function Home() {
                       whileHover={{ y: -4 }}
                       transition={{ type: "spring", stiffness: 400, damping: 17 }}
                     >
-                      <span className="text-[10px] uppercase tracking-widest text-stone-400 mb-2 block">Suite 0{i+1}</span>
+                      <span className="text-[10px] uppercase tracking-widest text-stone-400 mb-2 block">Room {i+1}</span>
                       <h3 className="text-2xl font-serif text-white italic group-hover:text-stone-200 transition-colors">{room.title}</h3>
                     </motion.div>
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
@@ -305,6 +304,132 @@ export default function Home() {
                 </Link>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Premium Facilities Section */}
+      <section className="py-32 bg-stone-100">
+        <div className="container-custom">
+          <ScrollReveal direction="up" delay={0.2}>
+            <div className="text-center mb-20">
+              <span className="text-stone-400 font-bold uppercase tracking-[0.2em] text-[10px] mb-6 block">World-Class Facilities</span>
+              <h2 className="text-4xl md:text-6xl font-serif mb-8 text-stone-900 leading-tight italic">
+                Everything You <span className="text-stone-500">Need</span>
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                icon: "💪",
+                title: "Modern Gym",
+                description: "State-of-the-art fitness equipment with personal training available"
+              },
+              {
+                icon: "🏊",
+                title: "Infinity Pool",
+                description: "Stunning rooftop pool with panoramic views and poolside bar"
+              },
+              {
+                icon: "🏢",
+                title: "Conference Halls",
+                description: "Fully equipped meeting spaces for corporate events and functions"
+              },
+              {
+                icon: "🚗",
+                title: "Secure Parking",
+                description: "Ample secure parking space with 24/7 surveillance"
+              }
+            ].map((facility, index) => (
+              <ScrollReveal key={index} direction="up" delay={0.3 + index * 0.1}>
+                <motion.div 
+                  className="text-center p-8 bg-white border border-stone-200 hover:border-stone-400 transition-all duration-500"
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <motion.div 
+                    className="text-4xl mb-6"
+                    whileHover={{ rotate: 10 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {facility.icon}
+                  </motion.div>
+                  <h3 className="font-serif text-xl text-stone-800 mb-4">{facility.title}</h3>
+                  <p className="text-sm text-stone-500 font-light leading-relaxed">
+                    {facility.description}
+                  </p>
+                </motion.div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Preview Section */}
+      <section className="py-32 bg-stone-900 text-stone-100">
+        <div className="container-custom">
+          <ScrollReveal direction="up" delay={0.2}>
+            <div className="text-center mb-16">
+              <span className="text-stone-400 font-bold uppercase tracking-[0.2em] text-[10px] mb-6 block">Virtual Experience</span>
+              <h2 className="text-4xl md:text-6xl font-serif mb-8 leading-tight italic">
+                See The <span className="text-stone-400">Lodge</span>
+              </h2>
+              <p className="text-stone-300 text-lg max-w-2xl mx-auto leading-relaxed font-light mb-12">
+                Take a visual tour through our luxurious rooms, world-class facilities, and stunning architecture
+              </p>
+              
+              <Link href="/gallery">
+                <motion.button 
+                  className="bg-white text-stone-900 px-8 py-4 text-xs font-bold uppercase tracking-[0.3em] hover:bg-stone-100 transition-all duration-300"
+                  whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(0,0,0,0.3)" }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  View Full Gallery
+                </motion.button>
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {[
+              "/standardroom.jpg",
+              "/kitchenfront.jpg", 
+              "/pool.jpg",
+              "/hero.jpg",
+              "/standardroom.jpg",
+              "/kitchenfront.jpg",
+              "/pool.jpg",
+              "/hero.jpg"
+            ].map((image, index) => (
+              <ScrollReveal key={index} direction="up" delay={0.3 + index * 0.1}>
+                <Link href="/gallery">
+                  <motion.div 
+                    className="relative aspect-[4/3] overflow-hidden group cursor-pointer"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <img 
+                      src={image} 
+                      alt={`Ubunthu Lodge Gallery ${index + 1}`}
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <motion.div
+                        whileHover={{ scale: 1.2, rotate: 15 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ArrowRight className="w-6 h-6 text-white" />
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                </Link>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>

@@ -9,6 +9,7 @@ import Accommodation from "@/pages/Accommodation";
 import Dining from "@/pages/Dining";
 import Conferences from "@/pages/Conferences";
 import Contact from "@/pages/Contact";
+import Gallery from "@/pages/Gallery";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -17,6 +18,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/accommodation" component={Accommodation} />
       <Route path="/dining" component={Dining} />
+      <Route path="/gallery" component={Gallery} />
       <Route path="/conferences" component={Conferences} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />

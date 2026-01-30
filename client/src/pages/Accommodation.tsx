@@ -6,31 +6,22 @@ import { Wifi, Wind, Coffee, Maximize, User, ArrowRight } from "lucide-react";
 export default function Accommodation() {
   const rooms = [
     {
-      title: "The Executive Suite",
-      subtitle: "Pool View • Premier",
-      description: "A sanctuary designed for the uncompromising traveler. The Executive Suite merges expansive living quarters with a private balcony offering panoramic views of the stunning pool and elegant bar beyond. It features a dedicated workspace and a four-poster king bed draped in high-thread-count linens.",
-      amenities: ["King Master Bed", "Private Terrace", "Lounge Area", "Executive Desk", "Smart Entertainment", "Mini Bar"],
+      title: "Executive Suite",
+      subtitle: "Premium • K60,000 Single / K75,000 Double",
+      description: "Our Executive Suite is the pinnacle of luxury accommodation. This self-contained suite features premium air conditioning, large-screen TV, private geyser system, and elegant furnishings. Perfect for executives and discerning travelers seeking the ultimate comfort and privacy.",
+      amenities: ["King Bed", "Air Conditioning", "Smart TV", "Private Geyser", "Mini Bar", "Workspace"],
       size: "65 m²",
       occupancy: "2 Adults",
       image: "/standardroom.jpg"
     },
     {
-      title: "Deluxe Pool Room",
-      subtitle: "Courtyard • Quiet",
-      description: "Elegant and spacious, the Deluxe Room is an exercise in contemporary Malawian aesthetics. The room is acoustically treated for silence, providing a serene environment for deep work or restoration. The en-suite bathroom features a rain shower and artisanal toiletries.",
-      amenities: ["Queen Bed", "En-suite Rain Shower", "Work Station", "Climate Control", "Artisan Coffee", "Pool & Bar Access"],
+      title: "Standard Room",
+      subtitle: "Comfort • K50,000 Single / K65,000 Double",
+      description: "Our Standard Rooms offer exceptional value with modern amenities. Each self-contained room features efficient air conditioning, entertainment system, and reliable hot water from your private geyser. Ideal for business travelers and tourists seeking comfort and convenience.",
+      amenities: ["Double/Twin Beds", "Air Conditioning", "Smart TV", "Private Geyser", "Work Desk", "Wi-Fi"],
       size: "45 m²",
       occupancy: "2 Adults",
       image: "/kitchenfront.jpg"
-    },
-    {
-      title: "Standard Residence",
-      subtitle: "Main Wing • Efficient",
-      description: "Perfect for the transient professional, our Standard Rooms offer high-functionality without compromising on style. Featuring high-speed connectivity and a minimalist design ethos, it ensures a restful night in sophisticated surroundings.",
-      amenities: ["Double Bed", "Walk-in Shower", "Writing Desk", "Fiber Wi-Fi", "In-room Safe", "Daily Housekeeping"],
-      size: "32 m²",
-      occupancy: "2 Adults",
-      image: "/pool.jpg"
     }
   ];
 
