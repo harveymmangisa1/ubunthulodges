@@ -60,13 +60,23 @@
 
 @layer base {
   body {
-    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  ::selection {
+    background-color: hsl(var(--primary) / 0.2);
+    color: hsl(var(--primary));
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
-    @apply text-primary font-medium tracking-wide;
+    color: hsl(var(--primary));
+    font-weight: 500;
+    letter-spacing: 0.05em;
   }
 }
 
@@ -97,8 +107,12 @@
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-muted;
+  background-color: hsl(var(--muted));
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary/20 hover:bg-primary/40 transition-colors;
+  background-color: hsl(var(--primary) / 0.2);
+  transition: background-color 0.2s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--primary) / 0.4);
 }
