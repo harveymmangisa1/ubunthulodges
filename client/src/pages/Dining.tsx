@@ -1,6 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SectionHeader } from "@/components/SectionHeader";
+import { FoodGallery } from "@/components/FoodGallery";
 import { motion } from "framer-motion";
 import { Utensils, Wine, Clock } from "lucide-react";
 
@@ -121,6 +122,41 @@ export default function Dining() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Food Gallery Section */}
+      <section className="bg-white py-32">
+        <div className="container-custom">
+          <div className="text-center mb-20">
+            <motion.span 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-stone-400 text-[10px] uppercase tracking-[0.5em] block mb-6"
+            >
+              Culinary Showcase
+            </motion.span>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-4xl md:text-6xl font-serif leading-tight text-stone-800 mb-8"
+            >
+              Our <span className="italic">Culinary</span> Artistry
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="text-stone-500 text-lg font-light leading-relaxed max-w-3xl mx-auto"
+            >
+              Explore our collection of meticulously crafted dishes, each telling a story of Malawian flavors and culinary excellence.
+            </motion.p>
+          </div>
+        </div>
+        <FoodGallery />
       </section>
 
       <Footer />

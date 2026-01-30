@@ -12,7 +12,18 @@ export default function Accommodation() {
       title: "Executive Suite",
       subtitle: "Premium • K60,000 Single / K75,000 Double",
       description: "Our Executive Suite is the pinnacle of luxury accommodation. This self-contained suite features premium air conditioning, large-screen TV, private geyser system, and elegant furnishings. Perfect for executives and discerning travelers seeking the ultimate comfort and privacy.",
-      amenities: ["King Bed", "Air Conditioning", "Smart TV", "Private Geyser", "Mini Bar", "Workspace"],
+      amenities: [
+        "King Bed", 
+        "Air Conditioning", 
+        "Smart TV", 
+        "Private Geyser", 
+        "Mini Bar", 
+        "Workspace",
+        "En-suite Bathroom",
+        "Modern Toilet",
+        "Rain Shower",
+        "Hot Water System"
+      ],
       size: "65 m²",
       occupancy: "2 Adults",
       images: [
@@ -27,7 +38,18 @@ export default function Accommodation() {
       title: "Standard Room",
       subtitle: "Comfort • K50,000 Single / K65,000 Double",
       description: "Our Standard Rooms offer exceptional value with modern amenities. Each self-contained room features efficient air conditioning, entertainment system, and reliable hot water from your private geyser. Ideal for business travelers and tourists seeking comfort and convenience.",
-      amenities: ["Double/Twin Beds", "Air Conditioning", "Smart TV", "Private Geyser", "Work Desk", "Wi-Fi"],
+      amenities: [
+        "Double/Twin Beds", 
+        "Air Conditioning", 
+        "Smart TV", 
+        "Private Geyser", 
+        "Work Desk", 
+        "Wi-Fi",
+        "En-suite Bathroom",
+        "Modern Toilet",
+        "Hot Shower",
+        "Hot Water System"
+      ],
       size: "45 m²",
       occupancy: "2 Adults",
       images: [
