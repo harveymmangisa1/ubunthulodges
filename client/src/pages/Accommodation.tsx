@@ -1,6 +1,9 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { BookingForm } from "@/components/BookingForm";
+import { RoomGallery } from "@/components/RoomGallery";
+import { ScrollReveal } from "@/components/ScrollReveal";
+import { motion } from "framer-motion";
 import { Wifi, Wind, Coffee, Maximize, User, ArrowRight } from "lucide-react";
 
 export default function Accommodation() {
@@ -12,7 +15,13 @@ export default function Accommodation() {
       amenities: ["King Bed", "Air Conditioning", "Smart TV", "Private Geyser", "Mini Bar", "Workspace"],
       size: "65 m²",
       occupancy: "2 Adults",
-      image: "/standardroom.jpg"
+      images: [
+        { src: "/standardroom.jpg", alt: "Executive Suite Main View", caption: "Spacious living area with king bed" },
+        { src: "/kitchenfront.jpg", alt: "Executive Suite Bathroom", caption: "Modern bathroom with premium fixtures" },
+        { src: "/pool.jpg", alt: "Executive Suite Workspace", caption: "Dedicated workspace with city view" },
+        { src: "/standardroom.jpg", alt: "Executive Suite Details", caption: "Elegant furnishings and decor" },
+        { src: "/kitchenfront.jpg", alt: "Executive Suite Balcony", caption: "Private balcony with panoramic views" }
+      ]
     },
     {
       title: "Standard Room",
@@ -21,7 +30,12 @@ export default function Accommodation() {
       amenities: ["Double/Twin Beds", "Air Conditioning", "Smart TV", "Private Geyser", "Work Desk", "Wi-Fi"],
       size: "45 m²",
       occupancy: "2 Adults",
-      image: "/kitchenfront.jpg"
+      images: [
+        { src: "/kitchenfront.jpg", alt: "Standard Room Comfort", caption: "Comfortable sleeping area with modern decor" },
+        { src: "/pool.jpg", alt: "Standard Room Bathroom", caption: "Clean bathroom with shower facilities" },
+        { src: "/standardroom.jpg", alt: "Standard Room Workspace", caption: "Functional work area" },
+        { src: "/kitchenfront.jpg", alt: "Standard Room Amenities", caption: "Complete with TV and mini bar" }
+      ]
     }
   ];
 
@@ -46,21 +60,27 @@ export default function Accommodation() {
 
       {/* The Collection List */}
       <div className="container-custom py-32">
+        <ScrollReveal direction="up" delay={0.1}>
+          <div className="text-center mb-16">
+            <span className="text-stone-400 font-bold uppercase tracking-[0.2em] text-[10px] mb-6 block">Room Collection</span>
+            <h2 className="text-4xl md:text-5xl font-serif text-stone-900 mb-8">Luxury <span className="italic text-stone-500">Accommodation</span></h2>
+            <p className="text-stone-500 text-lg max-w-3xl mx-auto leading-relaxed font-light">
+              Experience our premium self-contained rooms featuring modern amenities, private geysers, and elegant furnishings designed for discerning travelers
+            </p>
+          </div>
+        </ScrollReveal>
+
         <div className="space-y-32">
           {rooms.map((room, index) => (
             <div key={index} className="group">
               <div className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-16 lg:gap-24 items-center`}>
                 
-                {/* Image Side */}
+                {/* Image Side - Room Gallery */}
                 <div className="w-full lg:w-1/2">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
-                    <img 
-                      src={room.image} 
-                      alt={room.title} 
-                      className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-1000 ease-out"
-                    />
-                    <div className="absolute inset-0 border border-black/5" />
-                  </div>
+                  <RoomGallery 
+                    images={room.images} 
+                    title={room.title}
+                  />
                 </div>
 
                 {/* Content Side */}
@@ -88,15 +108,24 @@ export default function Accommodation() {
                   </p>
                   
                   <div className="mb-10">
-                    <span className="text-[10px] uppercase font-bold text-stone-400 tracking-widest block mb-4">Features</span>
-                    <div className="grid grid-cols-2 gap-y-3 gap-x-4">
-                      {room.amenities.map((item, i) => (
-                        <div key={i} className="flex items-center gap-3">
-                          <div className="w-1 h-1 bg-stone-300 rounded-full" />
-                          <span className="text-sm font-light text-stone-600">{item}</span>
-                        </div>
-                      ))}
-                    </div>
+                    <ScrollReveal direction="up" delay={0.4}>
+                      <span className="text-[10px] uppercase font-bold text-stone-400 tracking-widest block mb-4">Luxury Features</span>
+                      <div className="grid grid-cols-2 gap-y-4 gap-x-4">
+                        {room.amenities.map((item, i) => (
+                          <motion.div 
+                            key={i} 
+                            className="flex items-center gap-3"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.5 + i * 0.1, duration: 0.4 }}
+                            whileHover={{ x: 5 }}
+                          >
+                            <div className="w-2 h-2 bg-stone-400 rounded-full" />
+                            <span className="text-sm font-medium text-stone-700">{item}</span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </ScrollReveal>
                   </div>
 
                   <a href="#booking-form" className="inline-flex items-center self-start text-xs font-bold uppercase tracking-[0.3em] text-stone-900 border-b border-stone-300 pb-2 hover:border-stone-900 hover:text-stone-600 transition-all duration-300">
