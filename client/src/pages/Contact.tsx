@@ -60,8 +60,8 @@ export default function Contact() {
                     <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-300 group-hover:text-stone-800 transition-colors">Location</span>
                   </div>
                   <p className="text-stone-500 font-light leading-relaxed pl-9">
-                    Off M5 Lakeshore Road, <br />
-                    Salima, Malawi — <span className="italic text-stone-400">The Senga Bay Precinct</span>
+                    Ubunthu Lodge & Conference Centre <br />
+                    6CMH+QJ3, Salima — <span className="italic text-stone-400">The Lakeshore</span>
                   </p>
                 </div>
 
@@ -91,10 +91,11 @@ export default function Contact() {
               <div className="absolute inset-0 bg-stone-900/10 pointer-events-none" />
 
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.54!2d34.4!3d-13.7!"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15448.97!2d34.4!3d-13.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNkNNSCtRSjMsIFNhbGltYQ!5e0!3m2!1sen!2smw!4v1600000000000!5m2!1sen!2smw"
                 className="w-full h-full border-0"
                 allowFullScreen={true}
                 loading="lazy"
+                title="Ubunthu Lodge Location"
               ></iframe>
             </div>
           </motion.div>

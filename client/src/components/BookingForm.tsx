@@ -24,6 +24,7 @@ export function BookingForm() {
     roomRate: number;
     total: number;
   } | null>(null);
+  const [calculatedNights, setCalculatedNights] = useState<number | undefined>(undefined);
 
   const form = useForm<InsertInquiry>({
     resolver: zodResolver(insertInquirySchema),
@@ -44,8 +45,16 @@ export function BookingForm() {
 
   useEffect(() => {
     if (checkIn && checkOut) {
-      const days = differenceInDays(new Date(checkOut), new Date(checkIn));
-      // You can pass this logic to your BookingCalculator via props if needed
+      const start = new Date(checkIn);
+      const end = new Date(checkOut);
+      const days = differenceInDays(end, start);
+      if (days > 0) {
+        setCalculatedNights(days);
+      } else {
+        setCalculatedNights(undefined);
+      }
+    } else {
+      setCalculatedNights(undefined);
     }
   }, [checkIn, checkOut]);
 
@@ -60,47 +69,55 @@ export function BookingForm() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-      
+
       {/* Left Column: Calculator & Summary (The 'Hook') */}
       <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
-        <BookingCalculator 
+        <BookingCalculator
+          externalNights={calculatedNights}
           onCalculate={(calculation) => setBookingCalc(calculation)}
         />
 
         <AnimatePresence>
           {bookingCalc && (
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+            <motion.div
+              initial={{ opacity: 0, x: -20, rotate: -2 }}
+              animate={{ opacity: 1, x: 0, rotate: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="bg-stone-900 text-white p-8 rounded-sm shadow-2xl relative overflow-hidden"
+              className="bg-[#1c1917] text-white p-10 rounded-xl shadow-2xl relative overflow-hidden border border-stone-800"
             >
-              <div className="absolute top-0 right-0 p-4 opacity-10">
-                <CheckCircle2 size={120} />
+              <div className="absolute top-0 right-0 p-4 opacity-[0.03]">
+                <CheckCircle2 size={200} />
               </div>
-              <h4 className="text-[10px] uppercase tracking-[0.3em] text-stone-400 mb-8">Reservation Summary</h4>
-              
-              <div className="space-y-4 mb-8">
-                <div className="flex justify-between text-sm">
-                  <span className="font-light text-stone-400">Accomodation</span>
-                  <span className="capitalize">{bookingCalc.roomType} Suite</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="font-light text-stone-400">Duration</span>
-                  <span>{bookingCalc.nights} Nights</span>
-                </div>
-                <div className="h-[1px] bg-stone-800 w-full my-4" />
-                <div className="flex justify-between items-end">
-                  <span className="text-sm font-light text-stone-400">Total Estimate</span>
-                  <span className="text-3xl font-serif italic text-white">
-                    K{bookingCalc.total.toLocaleString()}
-                  </span>
-                </div>
-              </div>
+              <div className="absolute inset-0 bg-[url('/noise.png')] opacity-5 mix-blend-overlay"></div>
 
-              <div className="flex gap-3 p-4 bg-stone-800/50 rounded-sm text-[11px] leading-relaxed text-stone-300">
-                <Info className="shrink-0 w-4 h-4 text-stone-500" />
-                <p>Final pricing may vary based on seasonal demands and special requests.</p>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-8 h-[1px] bg-stone-500"></div>
+                  <h4 className="text-[10px] uppercase tracking-[0.3em] text-stone-400">Review Reservation</h4>
+                </div>
+
+                <div className="space-y-6 mb-10">
+                  <div className="flex justify-between items-baseline text-sm border-b border-zinc-800 pb-4">
+                    <span className="font-light text-stone-500 uppercase tracking-wider text-xs">Accomodation</span>
+                    <span className="capitalize font-serif text-lg">{bookingCalc.roomType} Suite</span>
+                  </div>
+                  <div className="flex justify-between items-baseline text-sm border-b border-zinc-800 pb-4">
+                    <span className="font-light text-stone-500 uppercase tracking-wider text-xs">Duration</span>
+                    <span className="font-serif text-lg">{bookingCalc.nights} Nights</span>
+                  </div>
+
+                  <div className="flex justify-between items-end pt-4">
+                    <span className="text-sm font-light text-stone-400 uppercase tracking-wider text-xs">Total Estimate</span>
+                    <span className="text-4xl font-serif italic text-white tracking-tight">
+                      K{bookingCalc.total.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 p-4 bg-zinc-900/50 rounded-lg text-[11px] leading-relaxed text-stone-400 border border-zinc-800">
+                  <Info className="shrink-0 w-4 h-4 text-stone-500 mt-0.5" />
+                  <p>This is an estimate based on current rates. Final pricing may vary based on seasonal demands and special requests.</p>
+                </div>
               </div>
             </motion.div>
           )}
@@ -108,8 +125,8 @@ export function BookingForm() {
       </div>
 
       {/* Right Column: The Form (The 'Commitment') */}
-      <motion.div 
-        className="lg:col-span-7 bg-white p-8 md:p-12 border border-stone-100 shadow-sm"
+      <motion.div
+        className="lg:col-span-7 bg-white p-8 md:p-12 border border-stone-100 shadow-sm rounded-xl"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -129,7 +146,7 @@ export function BookingForm() {
                   <FormItem>
                     <FormLabel className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Full Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Alexander Malabwe" className="border-0 border-b border-stone-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-stone-900 transition-all bg-transparent h-10" {...field} />
+                      <Input placeholder="e.g. Alexander Malabwe" className="border-0 border-b border-stone-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-stone-900 hover:border-stone-300 transition-all bg-transparent h-10 placeholder:text-stone-300" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -142,7 +159,7 @@ export function BookingForm() {
                   <FormItem>
                     <FormLabel className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Email Address</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="alex@example.com" className="border-0 border-b border-stone-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-stone-900 transition-all bg-transparent h-10" {...field} />
+                      <Input type="email" placeholder="alex@example.com" className="border-0 border-b border-stone-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-stone-900 hover:border-stone-300 transition-all bg-transparent h-10 placeholder:text-stone-300" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -158,7 +175,7 @@ export function BookingForm() {
                   <FormItem>
                     <FormLabel className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Phone Number</FormLabel>
                     <FormControl>
-                       <Input type="tel" placeholder="+265..." className="border-0 border-b border-stone-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-stone-900 transition-all bg-transparent h-10" {...field} value={field.value || ""} />
+                      <Input type="tel" placeholder="+265..." className="border-0 border-b border-stone-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-stone-900 hover:border-stone-300 transition-all bg-transparent h-10 placeholder:text-stone-300" {...field} value={field.value || ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -171,13 +188,20 @@ export function BookingForm() {
                   <FormItem>
                     <FormLabel className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Total Guests</FormLabel>
                     <FormControl>
-                      <select 
-                        {...field} 
-                        onChange={(e) => field.onChange(parseInt(e.target.value))}
-                        className="w-full border-0 border-b border-stone-200 bg-transparent h-10 text-sm focus:outline-none focus:border-stone-900 transition-all cursor-pointer"
-                      >
-                        {[1, 2, 3, 4].map(n => <option key={n} value={n}>{n} {n === 1 ? 'Guest' : 'Guests'}</option>)}
-                      </select>
+                      <div className="relative">
+                        <select
+                          {...field}
+                          onChange={(e) => field.onChange(parseInt(e.target.value))}
+                          className="w-full border-0 border-b border-stone-200 bg-transparent h-10 text-sm focus:outline-none focus:border-stone-900 hover:border-stone-300 transition-all cursor-pointer appearance-none"
+                        >
+                          {[1, 2, 3, 4].map(n => <option key={n} value={n}>{n} {n === 1 ? 'Guest' : 'Guests'}</option>)}
+                        </select>
+                        <div className="absolute right-0 top-3 pointer-events-none text-stone-400">
+                          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </div>
+                      </div>
                     </FormControl>
                   </FormItem>
                 )}
@@ -242,10 +266,10 @@ export function BookingForm() {
               )}
             />
 
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               disabled={mutation.isPending}
-              className="w-full h-14 bg-stone-900 hover:bg-stone-800 text-white rounded-none uppercase tracking-[0.2em] text-xs font-bold transition-all"
+              className="w-full h-14 bg-stone-900 hover:bg-stone-800 text-white rounded-lg uppercase tracking-[0.2em] text-xs font-bold transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
             >
               {mutation.isPending ? <Loader2 className="animate-spin" /> : "Request Reservation"}
             </Button>

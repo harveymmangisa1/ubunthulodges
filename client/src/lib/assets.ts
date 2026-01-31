@@ -41,5 +41,5 @@ export const assets = {
         gallery6, gallery7, gallery8, gallery9, gallery10,
         gallery11, gallery12, gallery13, gallery14, gallery15, gallery16
     ],
-    hero: gallery3,
+    hero: "/hero.jpg",
 };

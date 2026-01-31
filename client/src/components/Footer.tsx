@@ -73,9 +73,9 @@ export function Footer() {
               <div className="flex gap-4">
                 <MapPin className="w-4 h-4 text-stone-600 shrink-0" />
                 <p>
-                  Salima, Malawi <br />
+                  Ubunthu Lodge & Conference Centre <br />
                   <span className="text-[10px] text-stone-600 uppercase tracking-tighter">
-                    Off M5 Lakeshore Road
+                    6CMH+QJ3, Salima
                   </span>
                 </p>
               </div>

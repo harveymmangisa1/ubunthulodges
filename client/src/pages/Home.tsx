@@ -206,9 +206,8 @@ export default function Home() {
         {/* Horizontal Scroll Container */}
         <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 px-[5vw] pb-12 scrollbar-hide">
           {[
-            { title: "Executive Suite", img: assets.gallery[2], price: "From $250" },
-            { title: "Standard Room", img: assets.gallery[3], price: "From $180" },
-            { title: "Garden Villa", img: assets.gallery[4], price: "From $320" }
+            { title: "Executive Suite", img: assets.gallery[2], price: "From K60,000" },
+            { title: "Standard Room", img: assets.gallery[3], price: "From K50,000" }
           ].map((room, i) => (
             <motion.div
               key={i}

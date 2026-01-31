@@ -98,9 +98,9 @@ export default function Dining() {
 
                 <div className="space-y-12">
                   {[
-                    { name: "Chambo Fillet", price: "24", desc: "Pan-seared Lake Malawi Chambo, lemon butter, wild greens." },
-                    { name: "Beef Tenderloin", price: "32", desc: "Aged fillet, mushroom reduction, silk potato fondant." },
-                    { name: "Saffron Risotto", price: "20", desc: "Hand-harvested vegetables, parmesan reggiano, gold oil." }
+                    { name: "Chambo Fillet", price: "K24,000", desc: "Pan-seared Lake Malawi Chambo, lemon butter, wild greens." },
+                    { name: "Beef Tenderloin", price: "K32,000", desc: "Aged fillet, mushroom reduction, silk potato fondant." },
+                    { name: "Saffron Risotto", price: "K20,000", desc: "Hand-harvested vegetables, parmesan reggiano, gold oil." }
                   ].map((dish, i) => (
                     <motion.div key={i} {...reveal} className="group">
                       <div className="flex justify-between items-baseline mb-2">
