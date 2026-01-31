@@ -55,6 +55,16 @@ const BookingBar = () => {
 
 export default function Home() {
   const { scrollY } = useScroll();
+  // Hero Carousel State
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeroIndex((prev) => (prev + 1) % assets.hero.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   // Parallax effect for Hero Text
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
@@ -66,19 +76,23 @@ export default function Home() {
 
       {/* Hero Section - Cinematic Parallax */}
       <section className="relative h-screen w-full overflow-hidden bg-stone-950">
-        <motion.div
-          className="absolute inset-0 z-0"
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2.5, ease: "easeOut" }}
-        >
-          <img
-            src={assets.hero}
-            alt="Ubunthu Lodge Aerial View"
-            className="w-full h-full object-cover opacity-70"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
-        </motion.div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentHeroIndex}
+            className="absolute inset-0 z-0"
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2.5, ease: "easeOut" }}
+          >
+            <img
+              src={assets.hero[currentHeroIndex]}
+              alt="Ubunthu Lodge Aerial View"
+              className="w-full h-full object-cover opacity-70"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+          </motion.div>
+        </AnimatePresence>
 
         <div className="relative z-10 container-custom h-full flex flex-col justify-center items-center text-center">
           <motion.div style={{ y: y1, opacity }} className="max-w-5xl">

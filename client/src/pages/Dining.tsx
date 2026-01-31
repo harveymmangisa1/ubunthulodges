@@ -81,13 +81,13 @@ export default function Dining() {
           <div className="flex flex-col lg:flex-row gap-24 items-center">
             <div className="w-full lg:w-1/2 grid grid-cols-12 grid-rows-6 h-[600px] gap-4">
               <motion.div {...reveal} className="col-span-7 row-span-4 overflow-hidden shadow-xl">
-                <img src={assets.food[0]} className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
+                <img src={assets.kitchen[0]} className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
               </motion.div>
               <motion.div {...reveal} transition={{ delay: 0.2 }} className="col-span-5 row-span-3 col-start-8 row-start-2 overflow-hidden shadow-xl">
                 <img src={assets.bar[0]} className="w-full h-full object-cover" />
               </motion.div>
               <motion.div {...reveal} transition={{ delay: 0.4 }} className="col-span-5 row-span-2 col-start-2 row-start-5 overflow-hidden shadow-xl">
-                <img src={assets.food[1]} className="w-full h-full object-cover" />
+                <img src={assets.kitchen[1]} className="w-full h-full object-cover" />
               </motion.div>
             </div>
 

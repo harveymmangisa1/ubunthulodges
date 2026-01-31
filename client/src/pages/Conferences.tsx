@@ -12,7 +12,7 @@ export default function Conferences() {
       <section className="relative pt-48 pb-32 bg-stone-950 overflow-hidden">
         <div className="absolute inset-0 opacity-40 grayscale">
           <img
-            src={assets.hero}
+            src={assets.conference[5]}
             className="w-full h-full object-cover"
             alt="Venue background"
           />
@@ -61,7 +61,7 @@ export default function Conferences() {
           <div className="relative">
             <div className="aspect-[4/5] overflow-hidden grayscale-[40%] hover:grayscale-0 transition-all duration-1000">
               <img
-                src={assets.gallery[1]}
+                src={assets.conference[3]}
                 alt="Executive Boardroom"
                 className="w-full h-full object-cover"
               />
@@ -88,8 +88,8 @@ export default function Conferences() {
 
           {/* Visualization for Planners */}
           <div className="w-full bg-stone-50 border border-stone-100 p-8 mb-12">
-            <div className="flex items-center justify-center h-64 opacity-80 mix-blend-multiply">
-
+            <div className="flex items-center justify-center h-64 overflow-hidden relative">
+              <img src={assets.conference[4]} className="w-full h-full object-cover opacity-50" />
             </div>
             <p className="text-center text-xs text-stone-400 uppercase tracking-widest mt-4">Standard Configurations (Custom Available upon Request)</p>
           </div>
@@ -143,6 +143,6 @@ export default function Conferences() {
       </section>
 
       <Footer />
-    </div>
+    </div >
   );
 }

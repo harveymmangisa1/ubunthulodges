@@ -31,6 +31,20 @@ import gallery13 from "@/assets/ubunthu/random gallery/WhatsApp Image 2026-01-31
 import gallery14 from "@/assets/ubunthu/random gallery/WhatsApp Image 2026-01-31 at 08.47.44.jpeg";
 import gallery15 from "@/assets/ubunthu/random gallery/WhatsApp Image 2026-01-31 at 08.47.51.jpeg";
 import gallery16 from "@/assets/ubunthu/random gallery/WhatsApp Image 2026-01-31 at 08.47.52.jpeg";
+// Hero & Kitchen Images
+import hero1 from "@/assets/ubunthu/hero other and kitchen/hero 2 far.jpeg";
+import hero2 from "@/assets/ubunthu/hero other and kitchen/hero2.jpeg";
+import hero3 from "@/assets/ubunthu/hero other and kitchen/hero2close.jpeg";
+import kitchen1 from "@/assets/ubunthu/hero other and kitchen/restaurant in.jpeg";
+import kitchen2 from "@/assets/ubunthu/hero other and kitchen/restaurant outer.jpeg";
+
+// Conference Images
+import conf1 from "@/assets/ubunthu/conference facility/conference hall 1.jpeg";
+import conf2 from "@/assets/ubunthu/conference facility/conference room 1.jpeg";
+import conf3 from "@/assets/ubunthu/conference facility/conference room b exterior.jpeg";
+import conf4 from "@/assets/ubunthu/conference facility/conference room b.jpeg";
+import conf5 from "@/assets/ubunthu/conference facility/hall corridor.jpeg";
+import conf6 from "@/assets/ubunthu/conference facility/hall exterior.jpeg";
 
 export const assets = {
     food: [food1, food2, food3, food4],
@@ -41,5 +55,7 @@ export const assets = {
         gallery6, gallery7, gallery8, gallery9, gallery10,
         gallery11, gallery12, gallery13, gallery14, gallery15, gallery16
     ],
-    hero: "/hero.jpg",
+    hero: [hero1, hero2, hero3],
+    kitchen: [kitchen1, kitchen2],
+    conference: [conf1, conf2, conf3, conf4, conf5, conf6]
 };
