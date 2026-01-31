@@ -55,16 +55,6 @@ const BookingBar = () => {
 
 export default function Home() {
   const { scrollY } = useScroll();
-  // Hero Carousel State
-  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentHeroIndex((prev) => (prev + 1) % assets.hero.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
   // Parallax effect for Hero Text
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
@@ -76,23 +66,19 @@ export default function Home() {
 
       {/* Hero Section - Cinematic Parallax */}
       <section className="relative h-screen w-full overflow-hidden bg-stone-950">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentHeroIndex}
-            className="absolute inset-0 z-0"
-            initial={{ scale: 1.1, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 2.5, ease: "easeOut" }}
-          >
-            <img
-              src={assets.hero[currentHeroIndex]}
-              alt="Ubunthu Lodge Aerial View"
-              className="w-full h-full object-cover opacity-70"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          className="absolute inset-0 z-0"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 2.5, ease: "easeOut" }}
+        >
+          <img
+            src={assets.hero}
+            alt="Ubunthu Lodge Aerial View"
+            className="w-full h-full object-cover opacity-70"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+        </motion.div>
 
         <div className="relative z-10 container-custom h-full flex flex-col justify-center items-center text-center">
           <motion.div style={{ y: y1, opacity }} className="max-w-5xl">
@@ -264,26 +250,29 @@ export default function Home() {
 
             <div className="grid grid-cols-2 gap-px bg-stone-900 border border-stone-900">
               {[
-                { icon: "Gym", title: "Fitness Center", img: assets.gallery[5] },
-                { icon: "Pool", title: "Pool", img: assets.poolNight[0] },
-                { icon: "Conf", title: "Conference", img: assets.gallery[10] },
-                { icon: "Bar", title: " Bar", img: assets.bar[0] }
+                { icon: "Gym", title: "Fitness Center", img: assets.gallery[5], num: "01" },
+                { icon: "Pool", title: "Pool", img: assets.poolDay[0], num: "02" },
+                { icon: "Conf", title: "Conference", img: assets.conference[0], num: "03" },
+                { icon: "Bar", title: "Bar", img: assets.bar[0], num: "04" }
               ].map((fac, i) => (
-                <div key={i} className="relative aspect-square flex flex-col justify-between p-10 group overflow-hidden">
-                  {/* Background Image */}
+                <div key={i} className="relative aspect-square flex flex-col justify-between p-10 group overflow-hidden cursor-pointer">
+                  {/* Background Image - Zoom Effect */}
                   <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110"
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
                     style={{ backgroundImage: `url(${fac.img})` }}
                   />
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-stone-900/60 group-hover:bg-stone-900/40 transition-colors duration-500" />
 
-                  {/* Content */}
-                  <div className="relative z-10">
-                    <span className="text-xs font-bold uppercase tracking-widest text-white/70">0{i + 1}</span>
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/40 to-stone-900/30 group-hover:via-stone-900/60 transition-colors duration-500" />
+
+                  {/* Content - Slide Up Effect */}
+                  <div className="relative z-10 flex justify-between items-start">
+                    <span className="text-xs font-bold uppercase tracking-widest text-white/70 border border-white/20 px-3 py-1 rounded-full backdrop-blur-sm group-hover:bg-white/10 transition-colors">{fac.num}</span>
                   </div>
-                  <div className="relative z-10">
-                    <h4 className="font-serif text-2xl text-white">{fac.title}</h4>
+
+                  <div className="relative z-10 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <h4 className="font-serif text-3xl text-white mb-2">{fac.title}</h4>
+                    <div className="h-[1px] w-0 bg-white group-hover:w-16 transition-all duration-500 delay-100" />
                   </div>
                 </div>
               ))}

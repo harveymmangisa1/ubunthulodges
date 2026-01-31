@@ -5,9 +5,10 @@ import food3 from "@/assets/ubunthu/food/WhatsApp Image 2026-01-31 at 08.48.03 (
 import food4 from "@/assets/ubunthu/food/WhatsApp Image 2026-01-31 at 08.48.03.jpeg";
 
 // Bar Images
-import bar1 from "@/assets/ubunthu/gentlemans bar/gentlemans bar (1).jpeg";
-import bar2 from "@/assets/ubunthu/gentlemans bar/gentlemans bar (2).jpeg";
-import bar3 from "@/assets/ubunthu/gentlemans bar/gentlemans bar (3).jpeg";
+// Bar Images
+import bar1 from "@/assets/ubunthu/gentlemans bar/bar_1.jpeg";
+import bar2 from "@/assets/ubunthu/gentlemans bar/bar_2.jpeg";
+import bar3 from "@/assets/ubunthu/gentlemans bar/bar_3.jpeg";
 
 // Pool (Night) Images
 import poolNight1 from "@/assets/ubunthu/pool pics at noght/WhatsApp Image 2026-01-30 at 20.30.08 (1).jpeg";
@@ -37,6 +38,8 @@ import hero2 from "@/assets/ubunthu/hero other and kitchen/hero2.jpeg";
 import hero3 from "@/assets/ubunthu/hero other and kitchen/hero2close.jpeg";
 import kitchen1 from "@/assets/ubunthu/hero other and kitchen/restaurant in.jpeg";
 import kitchen2 from "@/assets/ubunthu/hero other and kitchen/restaurant outer.jpeg";
+import poolDay1 from "@/assets/ubunthu/hero other and kitchen/pool_day_1.jpeg";
+import poolDay2 from "@/assets/ubunthu/hero other and kitchen/pool_day_2.jpeg";
 
 // Conference Images
 import conf1 from "@/assets/ubunthu/conference facility/conference hall 1.jpeg";
@@ -55,7 +58,8 @@ export const assets = {
         gallery6, gallery7, gallery8, gallery9, gallery10,
         gallery11, gallery12, gallery13, gallery14, gallery15, gallery16
     ],
-    hero: [hero1, hero2, hero3],
+    hero: "/hero.jpg", // Reverted to static string
     kitchen: [kitchen1, kitchen2],
+    poolDay: [poolDay1, poolDay2],
     conference: [conf1, conf2, conf3, conf4, conf5, conf6]
 };
