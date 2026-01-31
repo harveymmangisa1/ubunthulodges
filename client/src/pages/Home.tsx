@@ -248,16 +248,29 @@ export default function Home() {
               </Link>
             </ScrollReveal>
 
-            <div className="grid grid-cols-2 gap-px bg-stone-300 border border-stone-300">
+            <div className="grid grid-cols-2 gap-px bg-stone-900 border border-stone-900">
               {[
-                { icon: "Gym", title: "Fitness Center" },
-                { icon: "Pool", title: "Infinity Pool" },
-                { icon: "Conf", title: "Conference" },
-                { icon: "Bar", title: "Lounge Bar" }
+                { icon: "Gym", title: "Fitness Center", img: assets.gallery[5] },
+                { icon: "Pool", title: "Pool", img: assets.poolNight[0] },
+                { icon: "Conf", title: "Conference", img: assets.gallery[10] },
+                { icon: "Bar", title: " Bar", img: assets.bar[0] }
               ].map((fac, i) => (
-                <div key={i} className="bg-stone-50 p-10 aspect-square flex flex-col justify-between hover:bg-white transition-colors duration-500">
-                  <span className="text-xs font-bold uppercase tracking-widest text-stone-400">0{i + 1}</span>
-                  <h4 className="font-serif text-2xl text-stone-800">{fac.title}</h4>
+                <div key={i} className="relative aspect-square flex flex-col justify-between p-10 group overflow-hidden">
+                  {/* Background Image */}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110"
+                    style={{ backgroundImage: `url(${fac.img})` }}
+                  />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-stone-900/60 group-hover:bg-stone-900/40 transition-colors duration-500" />
+
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <span className="text-xs font-bold uppercase tracking-widest text-white/70">0{i + 1}</span>
+                  </div>
+                  <div className="relative z-10">
+                    <h4 className="font-serif text-2xl text-white">{fac.title}</h4>
+                  </div>
                 </div>
               ))}
             </div>
