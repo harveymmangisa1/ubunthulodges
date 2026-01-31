@@ -4,6 +4,7 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { FoodGallery } from "@/components/FoodGallery";
 import { motion } from "framer-motion";
 import { Utensils, Wine, Clock } from "lucide-react";
+import { assets } from "@/lib/assets";
 
 export default function Dining() {
   const reveal = {
@@ -16,21 +17,21 @@ export default function Dining() {
   return (
     <div className="min-h-screen flex flex-col bg-[#FDFCFB] text-stone-900">
       <Navigation />
-      
+
       {/* Hero - Cinematic Scale */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
-        <motion.div 
+        <motion.div
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 2 }}
           className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ backgroundImage: "url('/kitchenfront.jpg')" }}
+          style={{ backgroundImage: `url(${assets.food[2]})` }}
         >
           <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
         </motion.div>
-        
+
         <div className="relative z-10 text-center container-custom">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, letterSpacing: "0.2em" }}
             animate={{ opacity: 1, letterSpacing: "0.5em" }}
             transition={{ duration: 1 }}
@@ -51,7 +52,7 @@ export default function Dining() {
               A celebration of provenance, <br /> harvested from the soil of Salima.
             </motion.h2>
             <motion.p {...reveal} className="text-stone-500 text-lg font-light italic leading-relaxed">
-              Our kitchen operates on the rhythm of the seasons. We collaborate with local artisans and 
+              Our kitchen operates on the rhythm of the seasons. We collaborate with local artisans and
               fishermen to ensure every plate tells a story of Malawian terroir.
             </motion.p>
           </div>
@@ -80,13 +81,13 @@ export default function Dining() {
           <div className="flex flex-col lg:flex-row gap-24 items-center">
             <div className="w-full lg:w-1/2 grid grid-cols-12 grid-rows-6 h-[600px] gap-4">
               <motion.div {...reveal} className="col-span-7 row-span-4 overflow-hidden shadow-xl">
-                <img src="/kitchenfront.jpg" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
+                <img src={assets.food[0]} className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
               </motion.div>
               <motion.div {...reveal} transition={{ delay: 0.2 }} className="col-span-5 row-span-3 col-start-8 row-start-2 overflow-hidden shadow-xl">
-                <img src="/pool.jpg" className="w-full h-full object-cover" />
+                <img src={assets.bar[0]} className="w-full h-full object-cover" />
               </motion.div>
               <motion.div {...reveal} transition={{ delay: 0.4 }} className="col-span-5 row-span-2 col-start-2 row-start-5 overflow-hidden shadow-xl">
-                <img src="/gate.jpg" className="w-full h-full object-cover" />
+                <img src={assets.food[1]} className="w-full h-full object-cover" />
               </motion.div>
             </div>
 
@@ -94,7 +95,7 @@ export default function Dining() {
               <div className="max-w-md mx-auto">
                 <span className="text-stone-400 text-[10px] uppercase tracking-[0.5em] block mb-6">Signature Selection</span>
                 <h3 className="text-4xl font-serif italic mb-12 border-b border-stone-100 pb-8 text-stone-800">The Evening Menu</h3>
-                
+
                 <div className="space-y-12">
                   {[
                     { name: "Chambo Fillet", price: "24", desc: "Pan-seared Lake Malawi Chambo, lemon butter, wild greens." },
@@ -128,7 +129,7 @@ export default function Dining() {
       <section className="bg-white py-32">
         <div className="container-custom">
           <div className="text-center mb-20">
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -136,7 +137,7 @@ export default function Dining() {
             >
               Culinary Showcase
             </motion.span>
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -145,7 +146,7 @@ export default function Dining() {
             >
               Our <span className="italic">Culinary</span> Artistry
             </motion.h2>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

@@ -40,22 +40,22 @@ export function Navigation() {
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out border-b",
-          isScrolled 
-            ? "bg-white/80 backdrop-blur-md border-stone-200/50 py-3 shadow-sm" 
+          isScrolled
+            ? "bg-white/80 backdrop-blur-md border-stone-200/50 py-3 shadow-sm"
             : "bg-transparent border-transparent py-6"
         )}
       >
         <div className="container-custom flex items-center justify-between">
-          
+
           {/* Logo Area */}
           <Link href="/">
-            <motion.div 
+            <motion.div
               className="flex items-center gap-3 cursor-pointer group z-50 relative"
               whileHover={{ scale: 1.02 }}
             >
-              <img 
-                src="/logoubunthu.png" 
-                alt="Ubunthu Lodge Logo" 
+              <img
+                src="/logoubunthu.png"
+                alt="Ubunthu Lodge Logo"
                 className={cn(
                   "transition-all duration-500",
                   isScrolled ? "h-10 w-auto" : "h-12 w-auto"
@@ -92,18 +92,20 @@ export function Navigation() {
                 </a>
               </Link>
             ))}
-            
+
             <div className="w-[1px] h-4 bg-stone-300 mx-2" />
 
             {/* CTA Button */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-stone-900 text-white px-6 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-stone-800 transition-colors flex items-center gap-2"
-            >
-              <CalendarCheck className="w-3 h-3" />
-              Book Now
-            </motion.button>
+            <Link href="/contact">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-stone-900 text-white px-6 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-stone-800 transition-colors flex items-center gap-2"
+              >
+                <CalendarCheck className="w-3 h-3" />
+                Book Now
+              </motion.button>
+            </Link>
           </nav>
 
           {/* Mobile Toggle */}
@@ -131,10 +133,10 @@ export function Navigation() {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-0 z-40 bg-stone-950 text-white flex flex-col justify-center items-center"
           >
-             {/* Decorative Background Elements */}
+            {/* Decorative Background Elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-stone-800/20 rounded-full blur-3xl" />
-                <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-stone-900/40 rounded-full blur-3xl" />
+              <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-stone-800/20 rounded-full blur-3xl" />
+              <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-stone-900/40 rounded-full blur-3xl" />
             </div>
 
             <nav className="flex flex-col items-center space-y-8 relative z-10">
@@ -146,7 +148,7 @@ export function Navigation() {
                   transition={{ delay: 0.1 + index * 0.1, duration: 0.5 }}
                 >
                   <Link href={link.href}>
-                    <span 
+                    <span
                       onClick={() => setIsOpen(false)}
                       className={cn(
                         "text-4xl md:text-5xl font-serif italic cursor-pointer transition-all duration-300 hover:text-stone-400 block text-center",
@@ -159,22 +161,24 @@ export function Navigation() {
                 </motion.div>
               ))}
 
-              <motion.div 
+              <motion.div
                 className="pt-12 flex flex-col items-center gap-6"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
               >
                 <div className="w-12 h-[1px] bg-stone-800" />
-                
+
                 <a href="tel:+265995879030" className="flex items-center gap-3 text-sm tracking-widest uppercase hover:text-stone-400 transition-colors">
                   <Phone className="h-4 w-4" />
                   +265 995 87 90 30
                 </a>
 
-                <button className="bg-white text-stone-950 w-full px-12 py-4 text-xs font-bold uppercase tracking-[0.2em] mt-4 hover:bg-stone-200 transition-colors">
-                  Book Your Stay
-                </button>
+                <Link href="/contact">
+                  <button onClick={() => setIsOpen(false)} className="bg-white text-stone-950 w-full px-12 py-4 text-xs font-bold uppercase tracking-[0.2em] mt-4 hover:bg-stone-200 transition-colors">
+                    Book Your Stay
+                  </button>
+                </Link>
               </motion.div>
             </nav>
           </motion.div>

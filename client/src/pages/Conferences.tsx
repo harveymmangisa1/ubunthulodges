@@ -1,18 +1,19 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { ChevronRight, Download } from "lucide-react";
+import { assets } from "@/lib/assets";
 
 export default function Conferences() {
   return (
     <div className="min-h-screen flex flex-col bg-[#FDFCFB] text-stone-900 selection:bg-stone-200">
       <Navigation />
-      
+
       {/* Header - Static & Monumental */}
       <section className="relative pt-48 pb-32 bg-stone-950 overflow-hidden">
         <div className="absolute inset-0 opacity-40 grayscale">
-           <img 
-            src="https:h/tmag/s.u/splash.cam/phoeo-1517457373958-b7bdd4587205?q=80&w=2069splash.com/photo-1517457373958-b7bdd4587205?q=80&w=2069" 
-            className="w-full h-full object-cover" 
+          <img
+            src={assets.hero}
+            className="w-full h-full object-cover"
             alt="Venue background"
           />
         </div>
@@ -39,7 +40,7 @@ export default function Conferences() {
             <p className="text-stone-500 text-lg leading-relaxed font-light mb-12">
               Ubunthu Lodge provides a silent, powerful backdrop for your high-stakes decisions. Our facilities are designed to eliminate friction, allowing for absolute focus on the objective at hand.
             </p>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
               {[
                 "Redundant Fiber Connectivity",
@@ -59,9 +60,9 @@ export default function Conferences() {
 
           <div className="relative">
             <div className="aspect-[4/5] overflow-hidden grayscale-[40%] hover:grayscale-0 transition-all duration-1000">
-              <img 
-                src="https:/himates.unspltsh:com//hoto-1505373877841-8d25f7d46678?q=80&w=2012mages.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2012" 
-                alt="Executive Boardroom" 
+              <img
+                src={assets.gallery[1]}
+                alt="Executive Boardroom"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -77,20 +78,20 @@ export default function Conferences() {
           <div className="flex items-baseline justify-between border-b border-stone-100 pb-8">
             <h2 className="text-4xl font-serif italic">Venue Specifications</h2>
             <div className="flex items-center gap-4">
-               <button className="hidden md:flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-stone-400 hover:text-stone-900 transition-colors">
-                  <Download className="w-3 h-3" />
-                  Download Floor Plans
-               </button>
-               <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-stone-400">Salima, MW</span>
+              <button className="hidden md:flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-stone-400 hover:text-stone-900 transition-colors">
+                <Download className="w-3 h-3" />
+                Download Floor Plans
+              </button>
+              <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-stone-400">Salima, MW</span>
             </div>
           </div>
 
           {/* Visualization for Planners */}
           <div className="w-full bg-stone-50 border border-stone-100 p-8 mb-12">
-             <div className="flex items-center justify-center h-64 opacity-80 mix-blend-multiply">
-                
-             </div>
-             <p className="text-center text-xs text-stone-400 uppercase tracking-widest mt-4">Standard Configurations (Custom Available upon Request)</p>
+            <div className="flex items-center justify-center h-64 opacity-80 mix-blend-multiply">
+
+            </div>
+            <p className="text-center text-xs text-stone-400 uppercase tracking-widest mt-4">Standard Configurations (Custom Available upon Request)</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
@@ -99,14 +100,14 @@ export default function Conferences() {
               { name: "Executive Suite", cap: "16 PAX", desc: "Boardroom for high-level M&A.", type: "U-Shape" },
               { name: "Garden Pavilion", cap: "100 PAX", desc: "Networking and cocktails.", type: "Open Air" }
             ].map((venue, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="bg-white border border-stone-100 p-12 group hover:bg-stone-900 transition-colors duration-500"
               >
-                <span className="text-stone-300 text-xs font-mono mb-6 block group-hover:text-stone-600">0{i+1}</span>
+                <span className="text-stone-300 text-xs font-mono mb-6 block group-hover:text-stone-600">0{i + 1}</span>
                 <h3 className="text-2xl font-serif mb-4 group-hover:text-white transition-colors">{venue.name}</h3>
                 <p className="text-stone-400 text-sm font-light italic mb-8 group-hover:text-stone-500">{venue.desc}</p>
-                
+
                 <div className="space-y-3 pt-8 border-t border-stone-50 group-hover:border-stone-800 transition-colors">
                   <div className="flex justify-between text-[10px] uppercase tracking-widest font-bold">
                     <span className="text-stone-400">Capacity</span>
@@ -133,7 +134,7 @@ export default function Conferences() {
               <a href="mailto:events@ubunthulodge.com" className="group flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] text-stone-900">
                 Email Ubunthu <ChevronRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
               </a>
-              <a href="tel:+265999123456" className="group flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] text-stone-900">
+              <a href="tel:+265995879030" className="group flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] text-stone-900">
                 Direct Line <ChevronRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
               </a>
             </div>

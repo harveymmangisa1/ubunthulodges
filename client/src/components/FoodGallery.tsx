@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { X, Maximize2, ArrowLeft, ArrowRight } from "lucide-react";
+import { assets } from "@/lib/assets";
 
 interface FoodImage {
   src: string;
@@ -23,10 +24,8 @@ export function FoodGallery({ className = "" }: FoodGalleryProps) {
       title: "Starters & Appetizers",
       description: "Delicate beginnings to awaken your palate",
       images: [
-        { src: "/kitchenfront.jpg", alt: "Chambo Carpaccio", caption: "Fresh Lake Malawi Chambo with citrus dressing and microgreens" },
-        { src: "/pool.jpg", alt: "Bruschetta Selection", caption: "Artisanal bread with locally sourced toppings and herbs" },
-        { src: "/gate.jpg", alt: "Soup du Jour", caption: "Seasonal vegetable soup with freshly baked bread" },
-        { src: "/standardroom.jpg", alt: "Seafood Platter", caption: "Assorted seafood from Lake Malawi with house-made sauces" }
+        { src: assets.food[0], alt: "Chambo Carpaccio", caption: "Fresh Lake Malawi Chambo with citrus dressing and microgreens" },
+        { src: assets.food[1], alt: "Bruschetta Selection", caption: "Artisanal bread with locally sourced toppings and herbs" },
       ]
     },
     {
@@ -34,11 +33,8 @@ export function FoodGallery({ className = "" }: FoodGalleryProps) {
       title: "Main Courses",
       description: "Signature dishes showcasing Malawian flavors",
       images: [
-        { src: "/hero.jpg", alt: "Grilled Chambo", caption: "Whole grilled Chambo with lemon butter and seasonal vegetables" },
-        { src: "/kitchenfront.jpg", alt: "Beef Wellington", caption: "Tender beef wrapped in pastry with mushroom duxelles" },
-        { src: "/pool.jpg", alt: "Vegetarian Risotto", caption: "Creamy saffron risotto with local vegetables and parmesan" },
-        { src: "/gate.jpg", alt: "Lamb Shank", caption: "Slow-cooked lamb with rosemary potatoes and red wine reduction" },
-        { src: "/standardroom.jpg", alt: "Chicken Supreme", caption: "Pan-seared chicken breast with truffle mash" }
+        { src: assets.food[2], alt: "Grilled Chambo", caption: "Whole grilled Chambo with lemon butter and seasonal vegetables" },
+        { src: assets.food[3], alt: "Beef Wellington", caption: "Tender beef wrapped in pastry with mushroom duxelles" },
       ]
     },
     {
@@ -46,10 +42,8 @@ export function FoodGallery({ className = "" }: FoodGalleryProps) {
       title: "Desserts & Sweets",
       description: "Sweet endings to memorable meals",
       images: [
-        { src: "/hero.jpg", alt: "Chocolate Soufflé", caption: "Warm chocolate soufflé with vanilla ice cream" },
-        { src: "/pool.jpg", alt: "Fruit Tartelette", caption: "Seasonal fruit tart with pastry cream and glazed finish" },
-        { src: "/kitchenfront.jpg", alt: "Crème Brûlée", caption: "Classic vanilla custard with caramelized sugar crust" },
-        { src: "/gate.jpg", alt: "Local Delights", caption: "Selection of traditional Malawian sweets and fruits" }
+        { src: assets.gallery[5], alt: "Chocolate Soufflé", caption: "Warm chocolate soufflé with vanilla ice cream" },
+        { src: assets.gallery[6], alt: "Fruit Tartelette", caption: "Seasonal fruit tart with pastry cream and glazed finish" },
       ]
     },
     {
@@ -57,20 +51,19 @@ export function FoodGallery({ className = "" }: FoodGalleryProps) {
       title: "Beverages & Drinks",
       description: "Premium selections to complement your meal",
       images: [
-        { src: "/standardroom.jpg", alt: "Wine Selection", caption: "Curated wine list featuring local and international vintages" },
-        { src: "/hero.jpg", alt: "Cocktail Menu", caption: "Signature cocktails inspired by Malawian ingredients" },
-        { src: "/pool.jpg", alt: "Fresh Juices", caption: "Cold-pressed juices from local fruits and vegetables" },
-        { src: "/kitchenfront.jpg", alt: "Coffee & Tea", caption: "Premium coffee blends and herbal tea selections" }
+        { src: assets.bar[0], alt: "Cocktail Menu", caption: "Signature cocktails inspired by Malawian ingredients" },
+        { src: assets.bar[1], alt: "Wine Selection", caption: "Curated wine list featuring local and international vintages" },
+        { src: assets.bar[2], alt: "Lounge Ambiance", caption: "Relax in our sophisticated gentleman's bar" }
       ]
     }
   ];
 
-  const allImages = foodSections.flatMap(section => 
+  const allImages = foodSections.flatMap(section =>
     section.images.map(img => ({ ...img, category: section.category }))
   );
 
-  const filteredImages = selectedCategory === "all" 
-    ? allImages 
+  const filteredImages = selectedCategory === "all"
+    ? allImages
     : allImages.filter(img => img.category === selectedCategory);
 
   const currentImage = selectedImage !== null ? filteredImages[selectedImage] : null;
@@ -85,11 +78,11 @@ export function FoodGallery({ className = "" }: FoodGalleryProps) {
 
   const navigateImage = (direction: 'prev' | 'next') => {
     if (selectedImage === null) return;
-    
-    const newIndex = direction === 'prev' 
+
+    const newIndex = direction === 'prev'
       ? (selectedImage - 1 + filteredImages.length) % filteredImages.length
       : (selectedImage + 1) % filteredImages.length;
-    
+
     setSelectedImage(newIndex);
   };
 
@@ -109,11 +102,10 @@ export function FoodGallery({ className = "" }: FoodGalleryProps) {
               <motion.button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-3 text-xs font-bold uppercase tracking-[0.3em] border-b-2 transition-all duration-300 ${
-                  selectedCategory === category.id
+                className={`px-6 py-3 text-xs font-bold uppercase tracking-[0.3em] border-b-2 transition-all duration-300 ${selectedCategory === category.id
                     ? "border-stone-900 text-stone-900"
                     : "border-transparent text-stone-500 hover:text-stone-700 hover:border-stone-300"
-                }`}
+                  }`}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -136,28 +128,28 @@ export function FoodGallery({ className = "" }: FoodGalleryProps) {
                 onClick={() => openLightbox(index)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                transition={{ 
-                  type: "spring", 
-                  stiffness: 400, 
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
                   damping: 17,
-                  delay: index * 0.05 
+                  delay: index * 0.05
                 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
               >
-                <img 
-                  src={image.src} 
+                <img
+                  src={image.src}
                   alt={image.alt}
                   className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+
                 <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                   <h3 className="text-white font-serif text-xl mb-2">{image.alt}</h3>
                   <p className="text-white/80 text-sm font-light line-clamp-2">{image.caption}</p>
                 </div>
-                
-                <motion.div 
+
+                <motion.div
                   className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   transition={{ duration: 0.3 }}
@@ -175,7 +167,7 @@ export function FoodGallery({ className = "" }: FoodGalleryProps) {
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {foodSections.map((section, index) => (
-              <motion.div 
+              <motion.div
                 key={section.category}
                 className="text-center"
                 initial={{ opacity: 0, y: 20 }}
@@ -252,8 +244,8 @@ export function FoodGallery({ className = "" }: FoodGalleryProps) {
               className="max-w-5xl max-h-[80vh] mx-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <img 
-                src={currentImage.src} 
+              <img
+                src={currentImage.src}
                 alt={currentImage.alt}
                 className="w-full h-full object-contain"
               />

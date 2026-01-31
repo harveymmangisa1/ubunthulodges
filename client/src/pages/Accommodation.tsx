@@ -4,6 +4,7 @@ import { BookingForm } from "@/components/BookingForm";
 import { RoomGallery } from "@/components/RoomGallery";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { motion } from "framer-motion";
+import { assets } from "@/lib/assets";
 import { Wifi, Wind, Coffee, Maximize, User, ArrowRight } from "lucide-react";
 
 export default function Accommodation() {
@@ -13,11 +14,11 @@ export default function Accommodation() {
       subtitle: "Premium • K60,000 Single / K75,000 Double",
       description: "Our Executive Suite is the pinnacle of luxury accommodation. This self-contained suite features premium air conditioning, large-screen TV, private geyser system, and elegant furnishings. Perfect for executives and discerning travelers seeking the ultimate comfort and privacy.",
       amenities: [
-        "King Bed", 
-        "Air Conditioning", 
-        "Smart TV", 
-        "Private Geyser", 
-        "Mini Bar", 
+        "King Bed",
+        "Air Conditioning",
+        "Smart TV",
+        "Private Geyser",
+        "Mini Bar",
         "Workspace",
         "En-suite Bathroom",
         "Modern Toilet",
@@ -27,11 +28,11 @@ export default function Accommodation() {
       size: "65 m²",
       occupancy: "2 Adults",
       images: [
-        { src: "/standardroom.jpg", alt: "Executive Suite Main View", caption: "Spacious living area with king bed" },
-        { src: "/kitchenfront.jpg", alt: "Executive Suite Bathroom", caption: "Modern bathroom with premium fixtures" },
-        { src: "/pool.jpg", alt: "Executive Suite Workspace", caption: "Dedicated workspace with city view" },
-        { src: "/standardroom.jpg", alt: "Executive Suite Details", caption: "Elegant furnishings and decor" },
-        { src: "/kitchenfront.jpg", alt: "Executive Suite Balcony", caption: "Private balcony with panoramic views" }
+        { src: assets.gallery[2], alt: "Executive Suite Main View", caption: "Spacious living area with king bed" },
+        { src: assets.gallery[3], alt: "Executive Suite Bathroom", caption: "Modern bathroom with premium fixtures" },
+        { src: assets.gallery[4], alt: "Executive Suite Workspace", caption: "Dedicated workspace with elegant views" },
+        { src: assets.gallery[7], alt: "Executive Suite Details", caption: "Elegant furnishings and decor" },
+        { src: assets.gallery[8], alt: "Executive Suite Balcony", caption: "Private area with panoramic views" }
       ]
     },
     {
@@ -39,11 +40,11 @@ export default function Accommodation() {
       subtitle: "Comfort • K50,000 Single / K65,000 Double",
       description: "Our Standard Rooms offer exceptional value with modern amenities. Each self-contained room features efficient air conditioning, entertainment system, and reliable hot water from your private geyser. Ideal for business travelers and tourists seeking comfort and convenience.",
       amenities: [
-        "Double/Twin Beds", 
-        "Air Conditioning", 
-        "Smart TV", 
-        "Private Geyser", 
-        "Work Desk", 
+        "Double/Twin Beds",
+        "Air Conditioning",
+        "Smart TV",
+        "Private Geyser",
+        "Work Desk",
         "Wi-Fi",
         "En-suite Bathroom",
         "Modern Toilet",
@@ -53,10 +54,10 @@ export default function Accommodation() {
       size: "45 m²",
       occupancy: "2 Adults",
       images: [
-        { src: "/kitchenfront.jpg", alt: "Standard Room Comfort", caption: "Comfortable sleeping area with modern decor" },
-        { src: "/pool.jpg", alt: "Standard Room Bathroom", caption: "Clean bathroom with shower facilities" },
-        { src: "/standardroom.jpg", alt: "Standard Room Workspace", caption: "Functional work area" },
-        { src: "/kitchenfront.jpg", alt: "Standard Room Amenities", caption: "Complete with TV and mini bar" }
+        { src: assets.gallery[3], alt: "Standard Room Comfort", caption: "Comfortable sleeping area with modern decor" },
+        { src: assets.gallery[4], alt: "Standard Room Bathroom", caption: "Clean bathroom with shower facilities" },
+        { src: assets.gallery[7], alt: "Standard Room Workspace", caption: "Functional work area" },
+        { src: assets.gallery[2], alt: "Standard Room Amenities", caption: "Complete with TV and mini bar" }
       ]
     }
   ];
@@ -64,13 +65,13 @@ export default function Accommodation() {
   return (
     <div className="min-h-screen flex flex-col bg-[#FDFCFB] text-stone-900 selection:bg-stone-200">
       <Navigation />
-      
+
       {/* Static Editorial Hero */}
       <section className="relative h-[65vh] w-full">
-        <div 
-  className="absolute inset-0 bg-cover bg-center"
-  style={{ backgroundImage: "url('/standardroom.jpg')" }}
->
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${assets.gallery[2]})` }}
+        >
 
           <div className="absolute inset-0 bg-stone-900/40" />
         </div>
@@ -96,11 +97,11 @@ export default function Accommodation() {
           {rooms.map((room, index) => (
             <div key={index} className="group">
               <div className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-16 lg:gap-24 items-center`}>
-                
+
                 {/* Image Side - Room Gallery */}
                 <div className="w-full lg:w-1/2">
-                  <RoomGallery 
-                    images={room.images} 
+                  <RoomGallery
+                    images={room.images}
                     title={room.title}
                   />
                 </div>
@@ -111,7 +112,7 @@ export default function Accommodation() {
                     {room.subtitle}
                   </span>
                   <h2 className="text-4xl font-serif text-stone-900 mb-8">{room.title}</h2>
-                  
+
                   {/* Technical Specs - Fine Lines */}
                   <div className="flex items-center gap-8 border-y border-stone-200 py-4 mb-8">
                     <div className="flex items-center gap-3">
@@ -128,14 +129,14 @@ export default function Accommodation() {
                   <p className="text-stone-500 leading-relaxed font-light mb-10 text-lg">
                     {room.description}
                   </p>
-                  
+
                   <div className="mb-10">
                     <ScrollReveal direction="up" delay={0.4}>
                       <span className="text-[10px] uppercase font-bold text-stone-400 tracking-widest block mb-4">Luxury Features</span>
                       <div className="grid grid-cols-2 gap-y-4 gap-x-4">
                         {room.amenities.map((item, i) => (
-                          <motion.div 
-                            key={i} 
+                          <motion.div
+                            key={i}
                             className="flex items-center gap-3"
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}

@@ -5,11 +5,12 @@ import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motio
 import { useState, useEffect } from "react";
 import { X, Maximize2, ArrowLeft, ArrowRight, Camera, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { assets } from "@/lib/assets";
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("all");
-  
+
   // Custom Cursor Logic
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -30,33 +31,50 @@ export default function Gallery() {
     {
       category: "rooms",
       images: [
-        { src: "/standardroom.jpg", alt: "The Executive Suite", caption: "Spacious master bedroom with premium linens" },
-        { src: "/kitchenfront.jpg", alt: "En-suite Elegance", caption: "Modern bathroom fixtures and rainfall shower" },
-        { src: "/pool.jpg", alt: "Room Perspective", caption: "Curated furniture and local art pieces" },
+        { src: assets.gallery[2], alt: "The Executive Suite", caption: "Spacious master bedroom with premium linens" },
+        { src: assets.gallery[3], alt: "En-suite Elegance", caption: "Modern bathroom fixtures and rainfall shower" },
+        { src: assets.gallery[4], alt: "Room Perspective", caption: "Curated furniture and local art pieces" },
+        { src: assets.gallery[10], alt: "Suite Ambiance", caption: "Refined decor for a restful stay" },
+        { src: assets.gallery[11], alt: "Interior Details", caption: "Focus on craftsmanship and comfort" },
       ]
     },
     {
       category: "facilities",
       images: [
-        { src: "/pool.jpg", alt: "Rooftop Infinity", caption: "Uninterrupted views of the city skyline" },
-        { src: "/kitchenfront.jpg", alt: "Culinary Space", caption: "Modern kitchen producing world-class fusion" },
+        { src: assets.bar[0], alt: "Gentleman's Bar", caption: "A refined space for evening relaxation" },
+        { src: assets.poolNight[0], alt: "Night Pool", caption: "Atmospheric evening dips under the stars" },
+        { src: assets.food[0], alt: "Culinary Excellence", caption: "Gourmet dining experiences" },
+        { src: assets.bar[1], alt: "Lounge Area", caption: "Sophisticated social spaces" },
+        { src: assets.poolNight[2], alt: "Poolside View", caption: "Tranquil water features" },
+        { src: assets.gallery[12], alt: "Lodge Amenities", caption: "Modern facilities at your service" },
+      ]
+    },
+    {
+      category: "exterior",
+      images: [
+        { src: assets.gallery[0], alt: "Lodge Exterior", caption: "Traditional architecture meets modern luxury" },
+        { src: assets.gallery[1], alt: "Garden Views", caption: "Lush tropical surroundings" },
+        { src: assets.poolNight[1], alt: "Poolside Serenity", caption: "Relaxation by the water" },
+        { src: assets.gallery[13], alt: "Entrance Gate", caption: "Your journey into luxury begins here" },
+        { src: assets.gallery[14], alt: "Lodge Façade", caption: "Stunning views from every angle" },
+        { src: assets.gallery[15], alt: "Scenic Surroundings", caption: "The natural beauty of Salima" },
       ]
     }
   ];
 
-  const allImages = gallerySections.flatMap(section => 
+  const allImages = gallerySections.flatMap(section =>
     section.images.map(img => ({ ...img, category: section.category }))
   );
 
-  const filteredImages = selectedCategory === "all" 
-    ? allImages 
+  const filteredImages = selectedCategory === "all"
+    ? allImages
     : allImages.filter(img => img.category === selectedCategory);
 
   const currentImage = selectedImage !== null ? filteredImages[selectedImage] : null;
 
   const navigateImage = (direction: 'prev' | 'next') => {
     if (selectedImage === null) return;
-    const newIndex = direction === 'prev' 
+    const newIndex = direction === 'prev'
       ? (selectedImage - 1 + filteredImages.length) % filteredImages.length
       : (selectedImage + 1) % filteredImages.length;
     setSelectedImage(newIndex);
@@ -68,15 +86,15 @@ export default function Gallery() {
 
       {/* Hero Section: High Editorial */}
       <section className="relative h-[85vh] flex items-center justify-center overflow-hidden bg-stone-900">
-        <motion.div 
+        <motion.div
           initial={{ scale: 1.2 }}
           animate={{ scale: 1 }}
           transition={{ duration: 2, ease: [0.23, 1, 0.32, 1] }}
           className="absolute inset-0 opacity-50"
         >
-          <img src="/hero.jpg" className="w-full h-full object-cover" alt="Gallery Hero" />
+          <img src={assets.hero} className="w-full h-full object-cover" alt="Gallery Hero" />
         </motion.div>
-        
+
         <div className="relative z-10 text-center px-6">
           <ScrollReveal direction="up">
             <span className="text-[10px] uppercase tracking-[0.6em] text-white/60 font-bold block mb-6">
@@ -92,10 +110,10 @@ export default function Gallery() {
         </div>
 
         {/* Scroll Indicator */}
-        <motion.div 
-          animate={{ y: [0, 10, 0] }} 
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 w-[1px] h-12 bg-gradient-to-b from-white/0 via-white/50 to-white/0" 
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 w-[1px] h-12 bg-gradient-to-b from-white/0 via-white/50 to-white/0"
         />
       </section>
 
@@ -135,12 +153,12 @@ export default function Gallery() {
                 className="relative group overflow-hidden bg-stone-200 cursor-none"
                 onClick={() => setSelectedImage(index)}
               >
-                <img 
-                  src={image.src} 
+                <img
+                  src={image.src}
                   alt={image.alt}
                   className="w-full h-auto object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
                 />
-                
+
                 {/* Subtle Info Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
                   <span className="text-[9px] uppercase tracking-[0.3em] text-white/50 mb-2">{image.category}</span>
@@ -171,9 +189,9 @@ export default function Gallery() {
             onClick={() => setSelectedImage(null)}
           >
             <div className="absolute top-10 right-10 flex gap-6">
-               <button className="text-white/40 hover:text-white transition-colors" onClick={() => setSelectedImage(null)}>
-                  <X size={32} strokeWidth={1} />
-               </button>
+              <button className="text-white/40 hover:text-white transition-colors" onClick={() => setSelectedImage(null)}>
+                <X size={32} strokeWidth={1} />
+              </button>
             </div>
 
             <motion.img
@@ -194,12 +212,12 @@ export default function Gallery() {
 
             {/* Nav Arrows */}
             <div className="absolute inset-x-10 flex justify-between pointer-events-none">
-                <button onClick={(e) => { e.stopPropagation(); navigateImage('prev'); }} className="pointer-events-auto text-white/20 hover:text-white transition-colors">
-                  <ArrowLeft size={48} strokeWidth={1} />
-                </button>
-                <button onClick={(e) => { e.stopPropagation(); navigateImage('next'); }} className="pointer-events-auto text-white/20 hover:text-white transition-colors">
-                  <ArrowRight size={48} strokeWidth={1} />
-                </button>
+              <button onClick={(e) => { e.stopPropagation(); navigateImage('prev'); }} className="pointer-events-auto text-white/20 hover:text-white transition-colors">
+                <ArrowLeft size={48} strokeWidth={1} />
+              </button>
+              <button onClick={(e) => { e.stopPropagation(); navigateImage('next'); }} className="pointer-events-auto text-white/20 hover:text-white transition-colors">
+                <ArrowRight size={48} strokeWidth={1} />
+              </button>
             </div>
           </motion.div>
         )}
